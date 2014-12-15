@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="cg1-Mr-6Hf">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <scenes>
+        <!--Root View Controller-->
+        <scene sceneID="O64-k5-dm5">
+            <objects>
+                <tableViewController id="etv-CZ-Cbh" customClass="ViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="94" sectionHeaderHeight="22" sectionFooterHeight="22" id="bHt-Nb-2wX">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="PostIdentifier" rowHeight="94" id="UY1-7B-8BS">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="UY1-7B-8BS" id="a72-BG-2qV">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="su5-Fn-4Xa">
+                                            <rect key="frame" x="10" y="14" width="60" height="60"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="60" id="mT4-TZ-V2Y"/>
+                                                <constraint firstAttribute="height" constant="60" id="t3H-Ol-KG8"/>
+                                            </constraints>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="username" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WaP-42-pAD">
+                                            <rect key="frame" x="80" y="14" width="232" height="20"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="20" id="0v7-3t-Zfg"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="3" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="text" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pjf-uA-jW7">
+                                            <rect key="frame" x="80" y="43" width="232" height="17"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="Pjf-uA-jW7" firstAttribute="trailing" secondItem="a72-BG-2qV" secondAttribute="trailingMargin" id="BDM-zj-Fzq"/>
+                                        <constraint firstItem="Pjf-uA-jW7" firstAttribute="top" secondItem="WaP-42-pAD" secondAttribute="bottom" constant="9" id="G05-kZ-dTG"/>
+                                        <constraint firstItem="su5-Fn-4Xa" firstAttribute="leading" secondItem="a72-BG-2qV" secondAttribute="leadingMargin" constant="2" id="MHn-FM-RuE"/>
+                                        <constraint firstItem="WaP-42-pAD" firstAttribute="leading" secondItem="su5-Fn-4Xa" secondAttribute="trailing" constant="10" id="YNE-u0-Mac"/>
+                                        <constraint firstItem="WaP-42-pAD" firstAttribute="trailing" secondItem="a72-BG-2qV" secondAttribute="trailingMargin" id="mU8-ZP-71T"/>
+                                        <constraint firstItem="Pjf-uA-jW7" firstAttribute="leading" secondItem="su5-Fn-4Xa" secondAttribute="trailing" constant="10" id="sRx-FC-QU4"/>
+                                        <constraint firstItem="su5-Fn-4Xa" firstAttribute="top" secondItem="a72-BG-2qV" secondAttribute="topMargin" constant="6" id="tVN-Kc-569"/>
+                                        <constraint firstItem="WaP-42-pAD" firstAttribute="top" secondItem="a72-BG-2qV" secondAttribute="topMargin" constant="6" id="uo4-A1-E2d"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="etv-CZ-Cbh" id="XUV-lc-100"/>
+                            <outlet property="delegate" destination="etv-CZ-Cbh" id="xba-ek-7sd"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Root View Controller" id="NfE-xY-kax"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4hV-S3-QZo" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="435" y="602"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="cCv-gz-MLX">
+            <objects>
+                <navigationController id="cg1-Mr-6Hf" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="ACr-NF-e9B">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="etv-CZ-Cbh" kind="relationship" relationship="rootViewController" id="5Ak-2J-4yg"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uMc-Wd-pF3" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="74.666666666666671" y="128.74666666666667"/>
+        </scene>
+    </scenes>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
+    </simulatedMetricsContainer>
+</document>
