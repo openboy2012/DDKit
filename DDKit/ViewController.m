@@ -62,6 +62,8 @@
     UILabel *lblText = (UILabel *)[cell.contentView viewWithTag:3];
     lblText.text = p.text;
     
+    
+    
     return cell;
 }
 
