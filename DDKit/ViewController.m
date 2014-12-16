@@ -10,13 +10,18 @@
 #import "Post.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 
-@interface ViewController (){
+@interface ViewController ()<UINavigationControllerDelegate>{
     NSMutableArray *dataList;
 }
 
 @end
 
 @implementation ViewController
+
+- (void)dealloc
+{
+    [Post cancelRequest:self];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -62,8 +67,6 @@
     UILabel *lblText = (UILabel *)[cell.contentView viewWithTag:3];
     lblText.text = p.text;
     
-    
-    
     return cell;
 }
 
@@ -73,10 +76,26 @@
 {
     CGFloat height = 0.0f;
     Post *p = dataList[indexPath.row];
-    height  = fmaxf(80.0f, ceilf([p.text sizeWithFont:[UIFont systemFontOfSize:14.0f] constrainedToSize:CGSizeMake([UIScreen mainScreen].bounds.size.width - 80.0f, CGFLOAT_MAX) lineBreakMode:NSLineBreakByWordWrapping].height) + 50.0f);
+    CGSize sizeText = CGSizeZero;
+#if (defined(__IPHONE_OS_VERSION_MAX_ALLOWED) && __IPHONE_OS_VERSION_MAX_ALLOWED >= 70000)
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
+    NSDictionary *attributes = @{NSFontAttributeName:[UIFont systemFontOfSize:14.0f], NSParagraphStyleAttributeName:paragraphStyle.copy};
+    sizeText = [p.text boundingRectWithSize:CGSizeMake([UIScreen mainScreen].bounds.size.width - 80.0f, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:nil].size;
+#else
+    sizeText = [p.text sizeWithFont:[UIFont systemFontOfSize:14.0f] constrainedToSize:CGSizeMake([UIScreen mainScreen].bounds.size.width - 80.0f, CGFLOAT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
+#endif
+    
+    height  = fmaxf(80.0f, ceilf(sizeText.height) + 50.0f);
     
     return height;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if(self.navigationController.viewControllers.count > 1){
+        return;
+    }
+    [self performSegueWithIdentifier:@"nextSegue" sender:self];
+}
 
 @end

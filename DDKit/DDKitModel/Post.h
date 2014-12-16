@@ -28,5 +28,7 @@
             success:(DDBasicSuccessBlock)success
             failure:(DDBasicFailureBlock)failure;
 
++ (void)cancelAllRequest:(id)viewController;
+
 @end
 

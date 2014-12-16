@@ -38,7 +38,7 @@
 }
 
 - (void)addOperation:(AFURLConnectionOperation *)operation withKey:(NSString *)key{
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul), ^{
+    dispatch_async(dispatch_get_main_queue(), ^{
         NSMutableArray *operations = self.ddHttpQueueDict[key];
         if(!operations)
             operations = [[NSMutableArray alloc] initWithObjects:operation, nil];
@@ -49,14 +49,14 @@
 }
 
 - (void)removeOperation:(AFURLConnectionOperation *)operation withKey:(NSString *)key{
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul), ^{
+    dispatch_async(dispatch_get_main_queue(), ^{
         NSMutableArray *operations = self.ddHttpQueueDict[key];
         [operations removeObject:operation];
     });
 }
 
 - (void)cancelOperationWithKey:(NSString *)key{
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul), ^{
+    dispatch_async(dispatch_get_main_queue(), ^{
         NSMutableArray *operations = self.ddHttpQueueDict[key];
         if(operations.count > 0)
             [operations makeObjectsPerformSelector:@selector(cancel)];
@@ -101,7 +101,7 @@ static int hudCount = 0;
     [topWindow addSubview:hud];
 #warning 处理HUD背景颜色 按需更换
     //处理背景颜色 按需更换
-    hud.color = [UIColor lightGrayColor];
+    hud.color = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.3f];
     hudCount++;
     [hud show:NO];
 }
@@ -112,6 +112,18 @@ static int hudCount = 0;
         [hud hide:NO];
     }
     hudCount --;
+}
+
+#pragma mark - Cancel HTTP Request Methods
+//取消这个viewController下的所有请求
++ (void)cancelRequest:(id)viewController{
+    if(hud){
+        [hud hide:NO];
+    }
+    if(viewController){
+        NSString *key = NSStringFromClass([viewController class]);
+        [[DDAFNetworkClient sharedClient] cancelOperationWithKey:key];
+    }
 }
 
 #pragma mark - HTTP Request Handler Methods
@@ -146,6 +158,7 @@ static int hudCount = 0;
                                           [self hideHud];
                                       }
                                       [[DDAFNetworkClient sharedClient] removeOperation:operation withKey:key];
+                                      NSLog(@"error = %@",error);
                                       if([error code] != kCFURLErrorCancelled){
                                           NSLog(@"error = %@",error);
                                       }
@@ -184,6 +197,7 @@ static int hudCount = 0;
                                            [self hideHud];
                                        }
                                        [[DDAFNetworkClient sharedClient] removeOperation:operation withKey:key];
+                                       NSLog(@"error = %@",error);
                                        if([error code] != kCFURLErrorCancelled){
                                            NSLog(@"error = %@",error);
                                        }
@@ -327,6 +341,22 @@ static int hudCount = 0;
     }
     free(properties);
     return props;
+}
+
+#pragma mark - DB Methods Overloaded
+
+//重载DB存储方法
+- (void)save{
+    dispatch_async(ddkit_db_queue(), ^{
+        [super save];
+    });
+}
+
+//重载DB删除方法
+- (void)deleteObjectCascade:(BOOL)cascade{
+    dispatch_async(ddkit_db_queue(), ^{
+        [super deleteObjectCascade:cascade];
+    });
 }
 
 @end

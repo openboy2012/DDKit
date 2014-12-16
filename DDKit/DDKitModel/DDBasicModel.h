@@ -48,6 +48,18 @@
 #define __USE_ENCRYPT_REQUEST 0
 #endif
 
+#define ddkit_db_queue_name "com.ddkit.iphone.dbqueue"
+
+//全局DB队列，防止并发存储产生的问题
+static dispatch_queue_t ddkit_db_queue() {
+    static dispatch_queue_t ddkit_db_queue_t;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        ddkit_db_queue_t = dispatch_queue_create(ddkit_db_queue_name, DISPATCH_QUEUE_SERIAL);
+    });
+    return ddkit_db_queue_t;
+}
+
 //Basic Success Block callback a id object;
 typedef void(^DDBasicSuccessBlock)(id data);
 //Basic Failure Block callback an error object & a message object
@@ -97,6 +109,9 @@ typedef NS_OPTIONS(NSUInteger, DDDataCacheType){
             parentViewController:(id)viewController
                          success:(DDBasicSuccessBlock)success
                          failure:(DDBasicFailureBlock)failure;
+
+//cancel all the request of the key viewController.
++ (void)cancelRequest:(id)viewController;
 
 @end
 
