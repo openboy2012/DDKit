@@ -6,14 +6,14 @@
 //  Copyright (c) 2014年 Dejohn Dong. All rights reserved.
 //
 
-#import "NSString+des3.h"
+#import "NSString+DES3.h"
 #import <CommonCrypto/CommonCrypto.h>
 #import "GTMBase64.h"
 
 #define gkey            @"fccs@desede_key@2013112$"
 #define gIv             @"01234567"
 
-@implementation NSString (des3)
+@implementation NSString (DES3)
 
 - (NSString *)encrptyByDES3{
     NSData *data = [self dataUsingEncoding:NSUTF8StringEncoding];

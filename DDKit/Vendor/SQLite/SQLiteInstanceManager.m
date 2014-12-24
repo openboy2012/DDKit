@@ -21,7 +21,6 @@
 #import "SQLiteInstanceManager.h"
 #import "SQLitePersistentObject.h"
 
-static SQLiteInstanceManager *sharedSQLiteManager = nil;
 
 #pragma mark Private Method Declarations
 @interface SQLiteInstanceManager (private)
@@ -34,10 +33,13 @@ static SQLiteInstanceManager *sharedSQLiteManager = nil;
 
 #pragma mark -
 #pragma mark Singleton Methods
-+ (id)sharedManager
++ (instancetype)sharedManager
 {
-    if (!sharedSQLiteManager)
+    static dispatch_once_t onceToken;
+    static SQLiteInstanceManager *sharedSQLiteManager = nil;
+    dispatch_once(&onceToken, ^{
         sharedSQLiteManager = [[self alloc] init];
+    });
     return sharedSQLiteManager;
 }
 
@@ -150,7 +152,7 @@ static SQLiteInstanceManager *sharedSQLiteManager = nil;
 
 - (NSString *)databaseName
 {
-    if (!databaseName && self == sharedSQLiteManager) {
+    if (!databaseName && self == [SQLiteInstanceManager sharedManager]) {
         NSMutableString *ret = [NSMutableString string];
         NSString *appName = [[NSProcessInfo processInfo] processName];
         for (int i = 0; i < [appName length]; i++) {

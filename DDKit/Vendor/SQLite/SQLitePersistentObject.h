@@ -83,7 +83,7 @@
 +(NSArray *)findByCriteria:(NSString *)criteriaString, ...;
 +(SQLitePersistentObject *)findFirstByCriteria:(NSString *)criteriaString, ...;
 +(SQLitePersistentObject *)findByPK:(int)inPk;
-+(NSArray *)allObjects;
++(NSArray *)allObjects __deprecated_msg("Use the DDBaiscModel methods '+ (void)getDataFromDBWithParameters:(id)params success:(DBGetBlock)block' -- add by Dejohn Dong 2014.12.16");
 
 /*!
  Find related objects

@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface NSString (des3)
+@interface NSString (DES3)
 
 - (NSString *)encrptyByDES3;
 

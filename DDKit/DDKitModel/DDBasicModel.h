@@ -9,8 +9,8 @@
 
 #import "SQLitePersistentObject.h"
 #import "NSObject+JTObjectMapping.h"
-#import "NSString+des3.h"
-#import "NSString+md5.h"
+#import "NSString+DES3.h"
+#import "NSString+MD5.h"
 
 #import "AFNetworking.h"
 
@@ -48,16 +48,29 @@
 #define __USE_ENCRYPT_REQUEST 0
 #endif
 
-#define ddkit_db_queue_name "com.ddkit.iphone.dbqueue"
+#define ddkit_db_write_queue_name "com.ddkit.iphone.dbqueue.write"
+#define ddkit_db_read_queue_name "com.ddkit.iphone.dbqueue.read"
 
-//全局DB队列，防止并发存储产生的问题
-static dispatch_queue_t ddkit_db_queue() {
-    static dispatch_queue_t ddkit_db_queue_t;
+UIKIT_EXTERN NSString *const DDKitHeadFieldUpdateNotification;
+
+//全局DB写队列，防止并发存储产生的问题
+static __unused dispatch_queue_t ddkit_db_write_queue() {
+    static dispatch_queue_t ddkit_db_write_queue;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        ddkit_db_queue_t = dispatch_queue_create(ddkit_db_queue_name, DISPATCH_QUEUE_SERIAL);
+        ddkit_db_write_queue = dispatch_queue_create(ddkit_db_write_queue_name, DISPATCH_QUEUE_SERIAL);
     });
-    return ddkit_db_queue_t;
+    return ddkit_db_write_queue;
+}
+
+//全局DB读队列，防止并发存储产生的问题
+static __unused dispatch_queue_t ddkit_db_read_queue() {
+    static dispatch_queue_t ddkit_db_read_queue;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        ddkit_db_read_queue = dispatch_queue_create(ddkit_db_read_queue_name, DISPATCH_QUEUE_SERIAL);
+    });
+    return ddkit_db_read_queue;
 }
 
 //Basic Success Block callback a id object;
@@ -65,10 +78,18 @@ typedef void(^DDBasicSuccessBlock)(id data);
 //Basic Failure Block callback an error object & a message object
 typedef void(^DDBasicFailureBlock)(NSError *error, NSDictionary *info);
 
+//Block callback of get data from DB
+typedef void(^DBGetBlock)(id data);
+
 typedef NS_OPTIONS(NSUInteger, DDDataCacheType){
     DDDataCacheTypeMemory          = 1 << 0,
     DDDataCacheTypeDB              = 1 << 1,
     DDDataCacheTypeNone            = 1 << 2
+};
+
+typedef NS_OPTIONS(NSUInteger, DBDataType) {
+    DBDataTypeFirstItem            = 1 << 0,
+    DBDataTypeItemList             = 1 << 1
 };
 
 @interface DDBasicModel : SQLitePersistentObject{
@@ -112,6 +133,9 @@ typedef NS_OPTIONS(NSUInteger, DDDataCacheType){
 
 //cancel all the request of the key viewController.
 + (void)cancelRequest:(id)viewController;
+
+//get data from db use a block
++ (void)getDataFromDBWithParameters:(id)params success:(DBGetBlock)block;
 
 @end
 

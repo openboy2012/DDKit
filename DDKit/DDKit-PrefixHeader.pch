@@ -1,0 +1,32 @@
+//
+//  DDKit-PrefixHeader.pch
+//  DDKit
+//
+//  Created by Diaoshu on 14-12-23.
+//  Copyright (c) 2014年 Dejohn Dong. All rights reserved.
+//
+
+#ifndef DDKit_DDKit_PrefixHeader_pch
+#define DDKit_DDKit_PrefixHeader_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#endif
+
+#ifdef __OBJC__
+    #import "UILabel+AutoSize.h"
+    #import "NSNumber+Screen.h"
+#endif
+
+#define RGB(x,y,z,a) [UIColor colorWithRed:x/255.0 green:y/255.0 blue:z/255.0 alpha:a]
+
+
+//获取iOS版本号
+#ifndef OS_VERSION
+#define OS_VERSION [[[UIDevice currentDevice] systemVersion] floatValue]
+#endif
+
+#define VERSION_GREATER(x) (OS_VERSION > x) ? 1 : 0
+
+#define boardWidth 1.0/[UIScreen mainScreen].scale

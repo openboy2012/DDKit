@@ -6,10 +6,10 @@
 //  Copyright (c) 2014年 Dejohn Dong. All rights reserved.
 //
 
-#import "NSString+md5.h"
+#import "NSString+MD5.h"
 #import <CommonCrypto/CommonCrypto.h>
 
-@implementation NSString(md5)
+@implementation NSString(MD5)
 
 - (NSString *)md5
 {

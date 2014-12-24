@@ -9,9 +9,19 @@
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
+		<key>DDKitToday.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>7</integer>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>8E05DEF11A495B4300B8D82D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>8E2B0B821A3E7873006025C8</key>
 		<dict>
 			<key>primary</key>

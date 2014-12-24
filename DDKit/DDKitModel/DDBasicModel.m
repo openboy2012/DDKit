@@ -9,6 +9,8 @@
 #import "DDBasicModel.h"
 #import "MBProgressHUD.h"
 
+NSString *const DDKitHeadFieldUpdateNotification = @"DDKitHeadFieldUpdateNotification";
+
 @interface DDAFNetworkClient()
 
 //根据Key值加入Opeartion
@@ -24,17 +26,44 @@
 
 @implementation DDAFNetworkClient
 
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:DDKitHeadFieldUpdateNotification object:nil];
+}
+
+- (instancetype)copyWithZone:(NSZone *)zone{
+    return self;
+}
+
 + (instancetype)sharedClient{
     static DDAFNetworkClient *afSharedClient = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         afSharedClient = [[DDAFNetworkClient alloc] initWithBaseURL:[NSURL URLWithString:kAppURL]];
+        
+        //初始化cer证书
         afSharedClient.securityPolicy = [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModeNone];
         
         //实例队列字典
         afSharedClient.ddHttpQueueDict = [[NSMutableDictionary alloc] initWithCapacity:0];
+        
     });
     return afSharedClient;
+}
+
+- (instancetype)initWithBaseURL:(NSURL *)url{
+    self = [super initWithBaseURL:url];
+    if(self){
+        [self addHeaderFieldKeyValue:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addHeaderFieldKeyValue:) name:DDKitHeadFieldUpdateNotification object:nil];
+    }
+    return self;
+}
+
+// TODO: 增加Request中的Header信息(非必须)
+- (void)addHeaderFieldKeyValue:(NSNotification *)notification{
+    // for-example
+    [self.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
 }
 
 - (void)addOperation:(AFURLConnectionOperation *)operation withKey:(NSString *)key{
@@ -253,17 +282,15 @@ static int hudCount = 0;
 #pragma mark - Parameter & Response String Handler Methods
 
 + (NSDictionary *)handleParameters:(NSDictionary *)params{
-    /* TO-DO
-     * 处理参数(该加密的加密，添加公共参数等等)
-     */
+    // TODO: 处理参数(该加密的加密，添加公共参数等等)
+    
+    
     return params;
 }
 
 + (id)getJSONObjectFromString:(NSString *)responseString{
     
-    /* TO-DO
-     * 处理返回的字符串(该解密的解密等等)
-     */
+    // TODO: 处理返回的字符串(该解密的解密等等)
     
     NSError *decodeError = nil;
     NSData *decodeData = [responseString dataUsingEncoding:NSUTF8StringEncoding];
@@ -317,7 +344,7 @@ static int hudCount = 0;
     objc_property_t *properties = class_copyPropertyList([self class], &outCount);
     for (i = 0; i < outCount; i++) {
         objc_property_t property = properties[i];
-        NSString *propertyName = DD_AUTORELEASE([[NSString alloc] initWithCString:property_getName(property) encoding:NSUTF8StringEncoding]);
+        NSString *propertyName = [[NSString alloc] initWithCString:property_getName(property) encoding:NSUTF8StringEncoding];
         id propertyValue = [self valueForKey:(NSString *)propertyName];
         if ([propertyValue isKindOfClass:[NSArray class]]){
             NSMutableArray *list = [NSMutableArray arrayWithCapacity:0];
@@ -347,15 +374,38 @@ static int hudCount = 0;
 
 //重载DB存储方法
 - (void)save{
-    dispatch_async(ddkit_db_queue(), ^{
+    dispatch_async(ddkit_db_write_queue(), ^{
         [super save];
     });
 }
 
 //重载DB删除方法
 - (void)deleteObjectCascade:(BOOL)cascade{
-    dispatch_async(ddkit_db_queue(), ^{
+    dispatch_async(ddkit_db_write_queue(), ^{
         [super deleteObjectCascade:cascade];
+    });
+}
+
+//创建获取DB数据的方法
++ (void)getDataFromDBWithParameters:(id)params success:(DBGetBlock)block{
+    dispatch_async(ddkit_db_read_queue(), ^{
+        //挂起数据库写入队列，优先数据库查询操作
+        dispatch_suspend(ddkit_db_write_queue());
+        if([params[@"type"] unsignedIntegerValue] == DBDataTypeFirstItem){
+            typeof(self) item = (typeof(self))[self findFirstByCriteria:params[@"criteria"]?:@""];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if(block)
+                    block(item);
+            });
+        }else{
+            NSArray *list = [self findByCriteria:params[@"criteria"]?:@""];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if(block)
+                    block(list);
+            });
+        }
+        //查询结束，继续数据库写入操作
+        dispatch_resume(ddkit_db_write_queue());
     });
 }
 

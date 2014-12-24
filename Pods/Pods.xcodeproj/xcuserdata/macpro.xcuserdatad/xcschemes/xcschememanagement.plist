@@ -9,6 +9,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Pods-FMDB.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-JTObjectMapping.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -32,27 +37,32 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>140931F4F23B136874AFD478</key>
+		<key>03ABDE0AC6EA2DC76EC7B734</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>1F474DF5D98CF111F8AB7DD6</key>
+		<key>162D5470C87F6BA4D7258B51</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>7181CB15D2DD472A54E6C3FB</key>
+		<key>67F12DBA60623D10E362AB12</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>85DEE733019579B7FE24DCB0</key>
+		<key>71CB0CE463EB3367CAF80C92</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>B20DEA602C108D3B0339FE69</key>
+		<key>A61F52C53D2A191141A92AAF</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C6F12B8D99FAF710D0F9B12F</key>
 		<dict>
 			<key>primary</key>
 			<true/>
