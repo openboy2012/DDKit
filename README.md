@@ -13,7 +13,8 @@ DDKit
 3.本工具中包含了我自身开发过程中遇到的学习代码。
 使用方法
 -----
-首先你要保证你的CocoaPods里的代码是存在的； 
+首先你要保证你的CocoaPods里的代码是存在的；    
 你只要继承了DDBasicModel以后就可以根据自己的业务创建模型 完成JsonMapping 和JsonNode的重载；
+详情看Demo吧
 
 Dejohn Dong's Demo Project
