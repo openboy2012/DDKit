@@ -9,6 +9,7 @@
 #import "ViewController.h"
 #import "Post.h"
 #import <SDWebImage/UIImageView+WebCache.h>
+#import <GameKit/GameKit.h>
 
 @interface DDTableViewCell : UITableViewCell
 
@@ -62,10 +63,12 @@
 
 @end
 
-@interface ViewController ()<UINavigationControllerDelegate>{
+@interface ViewController ()<UINavigationControllerDelegate,GKSessionDelegate>{
     NSMutableArray *dataList;
 //    UIRefreshControl *refeshControl;
 }
+
+@property (nonatomic, strong) GKSession *session;
 
 @end
 
@@ -83,11 +86,17 @@
         dataList = [[NSMutableArray alloc] initWithCapacity:0];
     [dataList removeAllObjects];
     
-    [self refreshData];
     
     self.refreshControl = [[UIRefreshControl alloc] init];
-    self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"下拉刷新"];
+//    [self.refreshControl addObserver:self forKeyPath:@"attributedTitle" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:nil];
     [self.refreshControl addTarget:self action:@selector(refreshData) forControlEvents:UIControlEventValueChanged];
+    
+    [self refreshData];
+    [self.refreshControl beginRefreshing];
+    
+    self.session = [[GKSession alloc] initWithSessionID:@"ddkitServer" displayName:@"Server" sessionMode:GKSessionModeServer];
+    self.session.delegate = self;
+    [self.session connectToPeer:@"ddkitClient" withTimeout:10.0f];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -133,14 +142,22 @@
     [self performSegueWithIdentifier:@"nextSegue" sender:self];
 }
 
+#pragma mark - KVO 
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context{
+    NSLog(@"changed");
+}
+
 #pragma mark - Custome Methods
 
 
 - (void)refreshData{
+//    self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"正在刷新"];
     [Post getPostList:nil
              parentVC:self
               showHUD:NO
               success:^(id data) {
+//                self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"下拉刷新"];
                   if(self.refreshControl)
                       [self.refreshControl endRefreshing];
                   [dataList removeAllObjects];

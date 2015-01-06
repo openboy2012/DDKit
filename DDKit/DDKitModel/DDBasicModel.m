@@ -96,7 +96,11 @@ NSString *const DDKitHeadFieldUpdateNotification = @"DDKitHeadFieldUpdateNotific
 @end
 
 
-@interface DDBasicModel()
+@interface DDBasicModel(){
+    @private
+    BOOL isRecursive;
+    NSMutableArray *operations;
+}
 
 //处理responseString
 + (id)getJSONObjectFromString:(NSString *)responseString;
@@ -374,14 +378,14 @@ static int hudCount = 0;
 
 //重载DB存储方法
 - (void)save{
-    dispatch_async(ddkit_db_write_queue(), ^{
+    dispatch_async(ddkit_db_read_queue(), ^{
         [super save];
     });
 }
 
 //重载DB删除方法
 - (void)deleteObjectCascade:(BOOL)cascade{
-    dispatch_async(ddkit_db_write_queue(), ^{
+    dispatch_async(ddkit_db_read_queue(), ^{
         [super deleteObjectCascade:cascade];
     });
 }
@@ -390,7 +394,7 @@ static int hudCount = 0;
 + (void)getDataFromDBWithParameters:(id)params success:(DBGetBlock)block{
     dispatch_async(ddkit_db_read_queue(), ^{
         //挂起数据库写入队列，优先数据库查询操作
-        dispatch_suspend(ddkit_db_write_queue());
+//        dispatch_suspend(ddkit_db_write_queue());
         if([params[@"type"] unsignedIntegerValue] == DBDataTypeFirstItem){
             typeof(self) item = (typeof(self))[self findFirstByCriteria:params[@"criteria"]?:@""];
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -405,7 +409,7 @@ static int hudCount = 0;
             });
         }
         //查询结束，继续数据库写入操作
-        dispatch_resume(ddkit_db_write_queue());
+//        dispatch_resume(ddkit_db_write_queue());
     });
 }
 

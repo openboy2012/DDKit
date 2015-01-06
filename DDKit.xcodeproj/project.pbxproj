@@ -47,6 +47,8 @@
 		8E4970D01A3EB03800B76187 /* digicert_ca_3.cer in Resources */ = {isa = PBXBuildFile; fileRef = 8E4970CD1A3EB03800B76187 /* digicert_ca_3.cer */; };
 		8E4970D11A3EB03800B76187 /* root_ca.cer in Resources */ = {isa = PBXBuildFile; fileRef = 8E4970CE1A3EB03800B76187 /* root_ca.cer */; };
 		8E4970D81A3EE02000B76187 /* Post.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E4970D71A3EE02000B76187 /* Post.m */; };
+		8E7932F31A5BC46D00B10525 /* mbaobao_adhoc.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8E7932F21A5BC46D00B10525 /* mbaobao_adhoc.plist */; };
+		8E9C7F971A52DB360018DBDE /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E9C7F961A52DB360018DBDE /* GameKit.framework */; };
 		8ECD6B501A4ABB2900F1FEE3 /* NSNumber+Screen.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ECD6B4F1A4ABB2900F1FEE3 /* NSNumber+Screen.m */; };
 		8EF4624D1A465E88009BB729 /* DDSqliteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EF4624C1A465E88009BB729 /* DDSqliteViewController.m */; };
 		8EF462501A46FBD6009BB729 /* UIImage+DDKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EF4624F1A46FBD6009BB729 /* UIImage+DDKit.m */; };
@@ -160,6 +162,8 @@
 		8E4970CE1A3EB03800B76187 /* root_ca.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = root_ca.cer; sourceTree = "<group>"; };
 		8E4970D61A3EE02000B76187 /* Post.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Post.h; sourceTree = "<group>"; };
 		8E4970D71A3EE02000B76187 /* Post.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Post.m; sourceTree = "<group>"; };
+		8E7932F21A5BC46D00B10525 /* mbaobao_adhoc.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = mbaobao_adhoc.plist; sourceTree = "<group>"; };
+		8E9C7F961A52DB360018DBDE /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		8ECD6B4E1A4ABB2900F1FEE3 /* NSNumber+Screen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNumber+Screen.h"; sourceTree = "<group>"; };
 		8ECD6B4F1A4ABB2900F1FEE3 /* NSNumber+Screen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNumber+Screen.m"; sourceTree = "<group>"; };
 		8EF4624B1A465E88009BB729 /* DDSqliteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDSqliteViewController.h; sourceTree = "<group>"; };
@@ -186,6 +190,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8E9C7F971A52DB360018DBDE /* GameKit.framework in Frameworks */,
 				8EF462571A47E2A3009BB729 /* LocalAuthentication.framework in Frameworks */,
 				8E2B0BE71A3E8158006025C8 /* libsqlite3.0.dylib in Frameworks */,
 				85796EA858DB89EBBF9D662D /* libPods.a in Frameworks */,
@@ -205,6 +210,7 @@
 		70C20DD2C26D48B7AE5F6E91 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8E9C7F961A52DB360018DBDE /* GameKit.framework */,
 				8EF462561A47E2A3009BB729 /* LocalAuthentication.framework */,
 				8E2B0BE61A3E8158006025C8 /* libsqlite3.0.dylib */,
 				CB062A1F957A456E088F0049 /* libPods.a */,
@@ -235,6 +241,7 @@
 		8E2B0B7A1A3E7873006025C8 = {
 			isa = PBXGroup;
 			children = (
+				8E7932F21A5BC46D00B10525 /* mbaobao_adhoc.plist */,
 				8E2B0B851A3E7873006025C8 /* DDKit */,
 				8E2B0B9F1A3E7873006025C8 /* DDKitTests */,
 				8E05DEF51A495B4300B8D82D /* DDKitToday */,
@@ -475,6 +482,7 @@
 				TargetAttributes = {
 					8E05DEF11A495B4300B8D82D = {
 						CreatedOnToolsVersion = 6.1.1;
+						DevelopmentTeam = N97MLAFK8M;
 					};
 					8E2B0B821A3E7873006025C8 = {
 						CreatedOnToolsVersion = 6.1.1;
@@ -523,6 +531,7 @@
 				8E4970CF1A3EB03800B76187 /* adn.cer in Resources */,
 				8E2B0B971A3E7873006025C8 /* LaunchScreen.xib in Resources */,
 				8E2B0B941A3E7873006025C8 /* Images.xcassets in Resources */,
+				8E7932F31A5BC46D00B10525 /* mbaobao_adhoc.plist in Resources */,
 				8E4970D01A3EB03800B76187 /* digicert_ca_3.cer in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -662,6 +671,7 @@
 		8E05DF011A495B4300B8D82D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -683,6 +693,7 @@
 		8E05DF021A495B4300B8D82D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				HEADER_SEARCH_PATHS = (
 					"\"${PODS_ROOT}/Headers/Public/SDWebImage\"",
 					"\"${PODS_ROOT}/Headers/Public\"",

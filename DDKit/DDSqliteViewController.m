@@ -14,7 +14,7 @@
 
 #import <LocalAuthentication/LocalAuthentication.h>
 
-#define number 100
+#define number 10
 
 #define isUseFMDB 0
 
@@ -64,6 +64,20 @@
     [super viewDidAppear:animated];
     [self saveDB];
     //iOS 8.0以上 指纹识别代码
+    if (VERSION_GREATER(7.9)) {
+        LAContext *localLAContext = [[LAContext alloc] init];
+        if([localLAContext canEvaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics error:nil]){
+            [localLAContext evaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics
+                           localizedReason:@"请输入指纹"
+                                     reply:^(BOOL success, NSError *error) {
+                                         if(success){
+                                             NSLog(@"指纹验证成功");
+                                         }else{
+                                             NSLog(@"指纹验证失败");
+                                         }
+                                     }];
+        }
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -145,10 +159,18 @@
 
 - (void)queryDB{
     [self timerStart];
-    [Post getDataFromDBWithParameters:nil success:^(id data) {
-        NSArray *list = data;
-        [self timerEnd];
-        self.lblResult.text = [NSString stringWithFormat:@"成功查询了%lu条数据",[list count]];
+    NSDictionary *params = @{@"type":@(DBDataTypeFirstItem),@"criteria":[NSString stringWithFormat:@"WHERE pk = %d", rand()%10000]};
+//    NSDictionary *params = nil;
+    [Post getDataFromDBWithParameters:params success:^(id data) {
+        if([data isKindOfClass:[NSArray class]]){
+            NSArray *list = data;
+            [self timerEnd];
+            self.lblResult.text = [NSString stringWithFormat:@"成功查询了%lu条数据",[list count]];
+        }else{
+            [self timerEnd];
+            Post *p = data;
+            NSLog(@"post's name = %@ & text = %@ pk＝%d",p.id,p.text,p.pk);
+        }
     }];
 }
 
