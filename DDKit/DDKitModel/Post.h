@@ -22,6 +22,7 @@
 @property (nonatomic, strong) NSNumber *id;
 @property (nonatomic, strong) User *user;
 
+
 + (void)getPostList:(id)params
            parentVC:(id)viewController
             showHUD:(BOOL)show

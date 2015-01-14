@@ -15,7 +15,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "8E05DEF11A495B4300B8D82D"
+               BlueprintIdentifier = "8E0CFCDF1A5E2EE90059CF2C"
                BuildableName = "DDKitToday.appex"
                BlueprintName = "DDKitToday"
                ReferencedContainer = "container:DDKit.xcodeproj">
@@ -47,7 +47,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "8E05DEF11A495B4300B8D82D"
+            BlueprintIdentifier = "8E0CFCDF1A5E2EE90059CF2C"
             BuildableName = "DDKitToday.appex"
             BlueprintName = "DDKitToday"
             ReferencedContainer = "container:DDKit.xcodeproj">

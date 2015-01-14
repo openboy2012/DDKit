@@ -38,9 +38,9 @@
     // Do any additional setup after loading the view.
     self.title = @"SQLiteSave";
     
-    if([self respondsToSelector:@selector(edgesForExtendedLayout)]){
-        self.edgesForExtendedLayout = UIRectEdgeNone;
-    }
+//    if([self respondsToSelector:@selector(edgesForExtendedLayout)]){
+//        self.edgesForExtendedLayout = UIRectEdgeNone;
+//    }
     
     //处理UISegmentedControl 在iOS6及以下的扁平化效果
     if (!VERSION_GREATER(6.9)) {

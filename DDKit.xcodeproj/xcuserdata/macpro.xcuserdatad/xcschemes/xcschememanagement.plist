@@ -12,12 +12,17 @@
 		<key>DDKitToday.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>7</integer>
+			<integer>1</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
 		<key>8E05DEF11A495B4300B8D82D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>8E0CFCDF1A5E2EE90059CF2C</key>
 		<dict>
 			<key>primary</key>
 			<true/>

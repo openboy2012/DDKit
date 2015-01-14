@@ -40,14 +40,15 @@
     [self.header sd_setImageWithURL:[NSURL URLWithString:p.user.avatarImageURLString]];
     self.lblNickname.text = p.user.username;
     self.lblContent.text = p.text;
-    self.lblContent.frame = CGRectMake(self.lblContent.frame.origin.x, self.lblContent.frame.origin.y, [NSNumber propertyWidth:80.0f], self.lblContent.frame.size.height);
+    self.lblContent.frame = CGRectMake(self.lblContent.frame.origin.x, self.lblContent.frame.origin.y, [NSNumber propertyWidth:90.0f], self.lblContent.frame.size.height);
     [self.lblContent resizeLabelVertical];
+    
 }
 
 + (CGFloat)heightOfCell:(Post *)p{
     CGFloat height = 50.0f;
     CGSize sizeText = CGSizeZero;
-    CGSize constrainSize = CGSizeMake([NSNumber propertyWidth:80.0], CGFLOAT_MAX);
+    CGSize constrainSize = CGSizeMake([NSNumber propertyWidth:90.0f], CGFLOAT_MAX);
     if ([p.text respondsToSelector:@selector(boundingRectWithSize:options:attributes:context:)]) {
         NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
         paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
@@ -57,7 +58,9 @@
     }else{
         sizeText = [p.text sizeWithFont:[UIFont systemFontOfSize:14.0f] constrainedToSize:constrainSize lineBreakMode:NSLineBreakByWordWrapping];
     }
-    height += ceil(sizeText.height);
+    height += ceilf(sizeText.height);
+    if(height <= 95.0)
+        height = 95.0;
     return height;
 }
 
@@ -78,14 +81,16 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
-    if([self respondsToSelector:@selector(edgesForExtendedLayout)]){
-        self.edgesForExtendedLayout = UIRectEdgeNone;
-    }
+//    if([self respondsToSelector:@selector(edgesForExtendedLayout)]){
+//        self.edgesForExtendedLayout = UIRectEdgeNone;
+//    }
     
     if(!dataList)
         dataList = [[NSMutableArray alloc] initWithCapacity:0];
     [dataList removeAllObjects];
     
+    self.title = @"DDKit";
+        
     
     self.refreshControl = [[UIRefreshControl alloc] init];
 //    [self.refreshControl addObserver:self forKeyPath:@"attributedTitle" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:nil];
@@ -97,6 +102,10 @@
     self.session = [[GKSession alloc] initWithSessionID:@"ddkitServer" displayName:@"Server" sessionMode:GKSessionModeServer];
     self.session.delegate = self;
     [self.session connectToPeer:@"ddkitClient" withTimeout:10.0f];
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"GameKit" style:UIBarButtonItemStyleBordered target:self action:@selector(go2GameKit)];
+    
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -148,6 +157,9 @@
     NSLog(@"changed");
 }
 
+- (void)go2GameKit{
+}
+
 #pragma mark - Custome Methods
 
 
@@ -163,6 +175,7 @@
                   [dataList removeAllObjects];
                   [dataList addObjectsFromArray:data];
                   [self.tableView reloadData];
+                  [self.tableView insertRowsAtIndexPaths:dataList withRowAnimation:UITableViewRowAnimationTop];
               }
               failure:^(NSError *error, NSDictionary *info) {
               }];

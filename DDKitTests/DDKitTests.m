@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
+#import "Post.h"
 
 @interface DDKitTests : XCTestCase
 
@@ -18,6 +19,14 @@
 - (void)setUp {
     [super setUp];
     // Put setup code here. This method is called before the invocation of each test method in the class.
+    [Post getPostList:nil
+             parentVC:nil
+              showHUD:NO
+              success:^(id data) {
+                  
+              }
+              failure:^(NSError *error, NSDictionary *info) {
+              }];
 }
 
 - (void)tearDown {
@@ -27,7 +36,14 @@
 
 - (void)testExample {
     // This is an example of a functional test case.
-    XCTAssert(YES, @"Pass");
+    [Post getPostList:nil
+             parentVC:nil
+              showHUD:NO
+              success:^(id data) {
+                  XCTAssert(YES, @"Pass");
+              }
+              failure:^(NSError *error, NSDictionary *info) {
+              }];
 }
 
 - (void)testPerformanceExample {
