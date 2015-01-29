@@ -54,6 +54,7 @@
                     <navigationItem key="navigationItem" id="NfE-xY-kax"/>
                     <connections>
                         <segue destination="QC9-yL-lCg" kind="push" identifier="nextSegue" id="Y1k-hy-f6M"/>
+                        <segue destination="zXm-6G-d4o" kind="push" identifier="DDWaterfallSegue" id="cgZ-dE-qpH"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4hV-S3-QZo" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -187,6 +188,7 @@
         <scene sceneID="cCv-gz-MLX">
             <objects>
                 <navigationController id="cg1-Mr-6Hf" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="ZzX-1j-aCt"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="ACr-NF-e9B">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -198,6 +200,35 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uMc-Wd-pF3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="74.666666666666671" y="128.74666666666667"/>
+        </scene>
+        <!--Waterfall View Controller-->
+        <scene sceneID="YuK-ws-eBC">
+            <objects>
+                <viewController id="zXm-6G-d4o" customClass="DDWaterfallViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="kSj-At-iJo">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="Mw6-Hb-bJW" customClass="DDWaterfallView">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" red="0.93333333330000001" green="0.92941176469999998" blue="0.90588235289999997" alpha="1" colorSpace="deviceRGB"/>
+                                <connections>
+                                    <outlet property="waterfallDataSource" destination="zXm-6G-d4o" id="wE6-Oi-h3A"/>
+                                    <outlet property="waterfallDelegate" destination="zXm-6G-d4o" id="lVV-7g-m6r"/>
+                                </connections>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="oqh-dL-Xp5"/>
+                    <connections>
+                        <outlet property="waterfallView" destination="Mw6-Hb-bJW" id="S81-s7-WjL"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="k8s-OL-3qk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1018" y="-218"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

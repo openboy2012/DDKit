@@ -105,7 +105,18 @@ typedef NS_OPTIONS(NSUInteger, DBDataType) {
 //handle the mappings about the json key-value transform to a model object.
 + (NSDictionary *)jsonMappings;
 
-//get json data from http server by HTTP GET Mehod.
+/**
+ *  Get json data from http server by HTTP GET Mehod.
+ *
+ *  @param path           HTTP Path
+ *  @param params         GET Paramtters
+ *  @param show           is show the HUD on the view
+ *  @param viewController parentViewController
+ *  @param success        success block
+ *  @param failure        failre block
+ *
+ *  @return HttpRequestOperation
+ */
 + (AFHTTPRequestOperation *)get:(NSString *)path
                          params:(id)params
                         showHUD:(BOOL)show
@@ -113,7 +124,18 @@ typedef NS_OPTIONS(NSUInteger, DBDataType) {
                         success:(DDBasicSuccessBlock)success
                         failure:(DDBasicFailureBlock)failure;
 
-//get json data from http server by HTTP POST Mehod.
+/**
+ *  Get json data from http server by HTTP POST Mehod.
+ *
+ *  @param path           HTTP Path
+ *  @param params         GET Paramtters
+ *  @param show           is show the HUD on the view
+ *  @param viewController parentViewController
+ *  @param success        success block
+ *  @param failure        failre block
+ *
+ *  @return HttpRequestOperation
+ */
 + (AFHTTPRequestOperation *)post:(NSString *)path
                           params:(id)params
                          showHUD:(BOOL)show

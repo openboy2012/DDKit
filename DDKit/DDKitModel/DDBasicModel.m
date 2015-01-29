@@ -13,13 +13,27 @@ NSString *const DDKitHeadFieldUpdateNotification = @"DDKitHeadFieldUpdateNotific
 
 @interface DDAFNetworkClient()
 
-//根据Key值加入Opeartion
+/**
+ *  根据Key值加入Opeartion
+ *
+ *  @param operation 正在请求的HTTP Operation
+ *  @param key       关键字，方便再次查找
+ */
 - (void)addOperation:(AFURLConnectionOperation *)operation withKey:(NSString *)key;
 
-//根据Key值取消某个Opeartion
+/**
+ *  根据Key值取消某个Opeartion
+ *
+ *  @param operation 正在请求的HTTP Operation
+ *  @param key       关键字，方便再次查找
+ */
 - (void)removeOperation:(AFURLConnectionOperation *)operation withKey:(NSString *)key;
 
-//根据Key取消所有的Operation
+/**
+ *  根据Key取消所有的Operation
+ *
+ *  @param key 关键字
+ */
 - (void)cancelOperationWithKey:(NSString *)key;
 
 @end
@@ -61,6 +75,11 @@ NSString *const DDKitHeadFieldUpdateNotification = @"DDKitHeadFieldUpdateNotific
 }
 
 // TODO: 增加Request中的Header信息(非必须)
+/**
+ *  增加Request中的Header信息(非必须)
+ *
+ *  @param notification 通过通知传递一些数据到HTTP Header
+ */
 - (void)addHeaderFieldKeyValue:(NSNotification *)notification{
     // for-example
     [self.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];

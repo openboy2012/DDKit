@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:DDWaterfall/DDWaterfall.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:GKSession/GKSession.xcodeproj">
    </FileRef>
    <FileRef

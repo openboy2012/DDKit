@@ -68,7 +68,7 @@
 
 @interface ViewController ()<UINavigationControllerDelegate,GKSessionDelegate>{
     NSMutableArray *dataList;
-//    UIRefreshControl *refeshControl;
+    BOOL isLoadedFirst;
 }
 
 @property (nonatomic, strong) GKSession *session;
@@ -81,9 +81,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
-//    if([self respondsToSelector:@selector(edgesForExtendedLayout)]){
-//        self.edgesForExtendedLayout = UIRectEdgeNone;
-//    }
     
     if(!dataList)
         dataList = [[NSMutableArray alloc] initWithCapacity:0];
@@ -93,7 +90,6 @@
         
     
     self.refreshControl = [[UIRefreshControl alloc] init];
-//    [self.refreshControl addObserver:self forKeyPath:@"attributedTitle" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:nil];
     [self.refreshControl addTarget:self action:@selector(refreshData) forControlEvents:UIControlEventValueChanged];
     
     [self refreshData];
@@ -104,7 +100,6 @@
     [self.session connectToPeer:@"ddkitClient" withTimeout:10.0f];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"GameKit" style:UIBarButtonItemStyleBordered target:self action:@selector(go2GameKit)];
-    
     
 }
 
@@ -144,10 +139,10 @@
 {
     Post *p = dataList[indexPath.row];
     return [DDTableViewCell heightOfCell:p];
-//    return height;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    NSLog(@"indexPath = %@",indexPath);
     [self performSegueWithIdentifier:@"nextSegue" sender:self];
 }
 
@@ -158,24 +153,27 @@
 }
 
 - (void)go2GameKit{
+    [self performSegueWithIdentifier:@"DDWaterfallSegue" sender:self];
 }
 
 #pragma mark - Custome Methods
 
-
 - (void)refreshData{
-//    self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"正在刷新"];
     [Post getPostList:nil
              parentVC:self
               showHUD:NO
               success:^(id data) {
-//                self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"下拉刷新"];
                   if(self.refreshControl)
                       [self.refreshControl endRefreshing];
-                  [dataList removeAllObjects];
-                  [dataList addObjectsFromArray:data];
-                  [self.tableView reloadData];
-                  [self.tableView insertRowsAtIndexPaths:dataList withRowAnimation:UITableViewRowAnimationTop];
+                  if(!isLoadedFirst){
+                      [dataList removeAllObjects];
+                      [dataList addObjectsFromArray:data];
+                      [self.tableView reloadData];
+                      isLoadedFirst = YES;
+                  }else{
+                      [dataList addObjectsFromArray:data];
+                      [self.tableView reloadData];
+                  }
               }
               failure:^(NSError *error, NSDictionary *info) {
               }];

@@ -21,12 +21,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    [self.todayImageView sd_setImageWithURL:[NSURL URLWithString:@"http://mobimage.mbbimg.cn/sku/1503023501-1-320-320-90.jpg"]];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - NCWidgetProviding Methods
+
+- (UIEdgeInsets)widgetMarginInsetsForProposedMarginInsets:(UIEdgeInsets)defaultMarginInsets{
+    return UIEdgeInsetsZero;
 }
 
 - (void)widgetPerformUpdateWithCompletionHandler:(void (^)(NCUpdateResult))completionHandler {
@@ -36,6 +41,7 @@
     // If there's no update required, use NCUpdateResultNoData
     // If there's an update, use NCUpdateResultNewData
 
+    [self.todayImageView sd_setImageWithURL:[NSURL URLWithString:@"http://mobimage.mbbimg.cn/sku/1503023501-1-320-320-90.jpg"]];
     completionHandler(NCUpdateResultNewData);
 }
 

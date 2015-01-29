@@ -1,19 +1,19 @@
 //
-//  DDKitAllTests.m
-//  DDKitAllTests
+//  DDWaterfallTests.m
+//  DDWaterfallTests
 //
-//  Created by Diaoshu on 15-1-12.
+//  Created by Diaoshu on 15-1-18.
 //  Copyright (c) 2015年 MBaoBao Inc. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
 
-@interface DDKitAllTests : XCTestCase
+@interface DDWaterfallTests : XCTestCase
 
 @end
 
-@implementation DDKitAllTests
+@implementation DDWaterfallTests
 
 - (void)setUp {
     [super setUp];

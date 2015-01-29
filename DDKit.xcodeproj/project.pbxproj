@@ -26,6 +26,12 @@
 		8E2B0BE71A3E8158006025C8 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E2B0BE61A3E8158006025C8 /* libsqlite3.0.dylib */; };
 		8E2B0BEA1A3E8309006025C8 /* DDBasicModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E2B0BE91A3E8309006025C8 /* DDBasicModel.m */; };
 		8E2B0BF51A3E8751006025C8 /* NSString+DES3.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E2B0BF41A3E8751006025C8 /* NSString+DES3.m */; };
+		8E31D1A41A6D069200EE1C2B /* DDWaterfallView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E31D1A01A6D069200EE1C2B /* DDWaterfallView.m */; };
+		8E31D1A51A6D069200EE1C2B /* DDWaterfallCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E31D1A21A6D069200EE1C2B /* DDWaterfallCell.m */; };
+		8E31D1AB1A6D080D00EE1C2B /* DDWaterfallViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E31D1AA1A6D080D00EE1C2B /* DDWaterfallViewController.m */; };
+		8E31D1AE1A6D388100EE1C2B /* PostCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E31D1AD1A6D388100EE1C2B /* PostCell.m */; };
+		8E4784511A7772D2008A018F /* KeyboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E4784501A7772D2008A018F /* KeyboardViewController.m */; };
+		8E4784541A7772D2008A018F /* MBBKeyboard.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 8E47844B1A7772D2008A018F /* MBBKeyboard.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		8E4970CF1A3EB03800B76187 /* adn.cer in Resources */ = {isa = PBXBuildFile; fileRef = 8E4970CC1A3EB03800B76187 /* adn.cer */; };
 		8E4970D01A3EB03800B76187 /* digicert_ca_3.cer in Resources */ = {isa = PBXBuildFile; fileRef = 8E4970CD1A3EB03800B76187 /* digicert_ca_3.cer */; };
 		8E4970D11A3EB03800B76187 /* root_ca.cer in Resources */ = {isa = PBXBuildFile; fileRef = 8E4970CE1A3EB03800B76187 /* root_ca.cer */; };
@@ -50,6 +56,7 @@
 		8E7F1F4F1A66425D00E21EB3 /* UIImage-SQLitePersistence.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E7F1F3D1A66425D00E21EB3 /* UIImage-SQLitePersistence.m */; };
 		8E9C7F971A52DB360018DBDE /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E9C7F961A52DB360018DBDE /* GameKit.framework */; };
 		8ECD6B501A4ABB2900F1FEE3 /* NSNumber+Screen.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ECD6B4F1A4ABB2900F1FEE3 /* NSNumber+Screen.m */; };
+		8EE8C3681A666F8E0002DE40 /* UITabBarItem+Flatten.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EE8C3671A666F8E0002DE40 /* UITabBarItem+Flatten.m */; };
 		8EF4624D1A465E88009BB729 /* DDSqliteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EF4624C1A465E88009BB729 /* DDSqliteViewController.m */; };
 		8EF462501A46FBD6009BB729 /* UIImage+DDKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EF4624F1A46FBD6009BB729 /* UIImage+DDKit.m */; };
 		8EF462571A47E2A3009BB729 /* LocalAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EF462561A47E2A3009BB729 /* LocalAuthentication.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -71,6 +78,13 @@
 			remoteGlobalIDString = 8E2B0B821A3E7873006025C8;
 			remoteInfo = DDKit;
 		};
+		8E4784521A7772D2008A018F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8E2B0B7B1A3E7873006025C8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8E47844A1A7772D2008A018F;
+			remoteInfo = MBBKeyboard;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -81,6 +95,7 @@
 			dstSubfolderSpec = 13;
 			files = (
 				8E0CFCEC1A5E2EE90059CF2C /* DDKitToday.appex in Embed App Extensions */,
+				8E4784541A7772D2008A018F /* MBBKeyboard.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -120,6 +135,18 @@
 		8E2B0BE91A3E8309006025C8 /* DDBasicModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDBasicModel.m; sourceTree = "<group>"; };
 		8E2B0BF31A3E8751006025C8 /* NSString+DES3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+DES3.h"; sourceTree = "<group>"; };
 		8E2B0BF41A3E8751006025C8 /* NSString+DES3.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+DES3.m"; sourceTree = "<group>"; };
+		8E31D19F1A6D069200EE1C2B /* DDWaterfallView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDWaterfallView.h; sourceTree = "<group>"; };
+		8E31D1A01A6D069200EE1C2B /* DDWaterfallView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDWaterfallView.m; sourceTree = "<group>"; };
+		8E31D1A11A6D069200EE1C2B /* DDWaterfallCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDWaterfallCell.h; sourceTree = "<group>"; };
+		8E31D1A21A6D069200EE1C2B /* DDWaterfallCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDWaterfallCell.m; sourceTree = "<group>"; };
+		8E31D1A91A6D080D00EE1C2B /* DDWaterfallViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDWaterfallViewController.h; sourceTree = "<group>"; };
+		8E31D1AA1A6D080D00EE1C2B /* DDWaterfallViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDWaterfallViewController.m; sourceTree = "<group>"; };
+		8E31D1AC1A6D388100EE1C2B /* PostCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostCell.h; sourceTree = "<group>"; };
+		8E31D1AD1A6D388100EE1C2B /* PostCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostCell.m; sourceTree = "<group>"; };
+		8E47844B1A7772D2008A018F /* MBBKeyboard.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = MBBKeyboard.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		8E47844E1A7772D2008A018F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8E47844F1A7772D2008A018F /* KeyboardViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KeyboardViewController.h; sourceTree = "<group>"; };
+		8E4784501A7772D2008A018F /* KeyboardViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KeyboardViewController.m; sourceTree = "<group>"; };
 		8E4970CC1A3EB03800B76187 /* adn.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = adn.cer; sourceTree = "<group>"; };
 		8E4970CD1A3EB03800B76187 /* digicert_ca_3.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = digicert_ca_3.cer; sourceTree = "<group>"; };
 		8E4970CE1A3EB03800B76187 /* root_ca.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = root_ca.cer; sourceTree = "<group>"; };
@@ -165,6 +192,8 @@
 		8E9C7F961A52DB360018DBDE /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		8ECD6B4E1A4ABB2900F1FEE3 /* NSNumber+Screen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNumber+Screen.h"; sourceTree = "<group>"; };
 		8ECD6B4F1A4ABB2900F1FEE3 /* NSNumber+Screen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNumber+Screen.m"; sourceTree = "<group>"; };
+		8EE8C3661A666F8E0002DE40 /* UITabBarItem+Flatten.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITabBarItem+Flatten.h"; sourceTree = "<group>"; };
+		8EE8C3671A666F8E0002DE40 /* UITabBarItem+Flatten.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITabBarItem+Flatten.m"; sourceTree = "<group>"; };
 		8EF4624B1A465E88009BB729 /* DDSqliteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDSqliteViewController.h; sourceTree = "<group>"; };
 		8EF4624C1A465E88009BB729 /* DDSqliteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDSqliteViewController.m; sourceTree = "<group>"; };
 		8EF4624E1A46FBD6009BB729 /* UIImage+DDKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+DDKit.h"; sourceTree = "<group>"; };
@@ -202,6 +231,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				059D5146A52BC15DD50625A3 /* libPods.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8E4784481A7772D2008A018F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -246,6 +282,7 @@
 				8E2B0B851A3E7873006025C8 /* DDKit */,
 				8E2B0B9F1A3E7873006025C8 /* DDKitTests */,
 				8E0CFCE21A5E2EE90059CF2C /* DDKitToday */,
+				8E47844C1A7772D2008A018F /* MBBKeyboard */,
 				8E2B0B841A3E7873006025C8 /* Products */,
 				90295DF337CCEB38E5AA0C9C /* Pods */,
 				70C20DD2C26D48B7AE5F6E91 /* Frameworks */,
@@ -258,6 +295,7 @@
 				8E2B0B831A3E7873006025C8 /* DDKit.app */,
 				8E2B0B9C1A3E7873006025C8 /* DDKitTests.xctest */,
 				8E0CFCE01A5E2EE90059CF2C /* DDKitToday.appex */,
+				8E47844B1A7772D2008A018F /* MBBKeyboard.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -276,9 +314,13 @@
 				8E1735AA1A49A47A001DE0DC /* DDCollectionViewController.m */,
 				8EF4624B1A465E88009BB729 /* DDSqliteViewController.h */,
 				8EF4624C1A465E88009BB729 /* DDSqliteViewController.m */,
+				8E31D1A91A6D080D00EE1C2B /* DDWaterfallViewController.h */,
+				8E31D1AA1A6D080D00EE1C2B /* DDWaterfallViewController.m */,
 				8E2B0B901A3E7873006025C8 /* Main.storyboard */,
 				8E2B0B931A3E7873006025C8 /* Images.xcassets */,
 				8E2B0B861A3E7873006025C8 /* Supporting Files */,
+				8E31D1AC1A6D388100EE1C2B /* PostCell.h */,
+				8E31D1AD1A6D388100EE1C2B /* PostCell.m */,
 			);
 			path = DDKit;
 			sourceTree = "<group>";
@@ -328,6 +370,8 @@
 				8E1735B01A4A6980001DE0DC /* UILabel+AutoSize.m */,
 				8ECD6B4E1A4ABB2900F1FEE3 /* NSNumber+Screen.h */,
 				8ECD6B4F1A4ABB2900F1FEE3 /* NSNumber+Screen.m */,
+				8EE8C3661A666F8E0002DE40 /* UITabBarItem+Flatten.h */,
+				8EE8C3671A666F8E0002DE40 /* UITabBarItem+Flatten.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -346,12 +390,42 @@
 		8E2B0BB41A3E80AC006025C8 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				8E31D1A31A6D069200EE1C2B /* DDWaterfallView */,
 				8E7F1F151A66425D00E21EB3 /* DMDynmicWaterfall */,
 				8E7F1F181A66425D00E21EB3 /* GTMBase64 */,
-				8E7F1F1C1A66425D00E21EB3 /* MJRefresh */,
 				8E7F1F1D1A66425D00E21EB3 /* SQLite */,
 			);
 			path = Vendor;
+			sourceTree = "<group>";
+		};
+		8E31D1A31A6D069200EE1C2B /* DDWaterfallView */ = {
+			isa = PBXGroup;
+			children = (
+				8E31D19F1A6D069200EE1C2B /* DDWaterfallView.h */,
+				8E31D1A01A6D069200EE1C2B /* DDWaterfallView.m */,
+				8E31D1A11A6D069200EE1C2B /* DDWaterfallCell.h */,
+				8E31D1A21A6D069200EE1C2B /* DDWaterfallCell.m */,
+			);
+			name = DDWaterfallView;
+			path = ../../DDWaterfall/DDWaterfall/DDWaterfallView;
+			sourceTree = "<group>";
+		};
+		8E47844C1A7772D2008A018F /* MBBKeyboard */ = {
+			isa = PBXGroup;
+			children = (
+				8E47844F1A7772D2008A018F /* KeyboardViewController.h */,
+				8E4784501A7772D2008A018F /* KeyboardViewController.m */,
+				8E47844D1A7772D2008A018F /* Supporting Files */,
+			);
+			path = MBBKeyboard;
+			sourceTree = "<group>";
+		};
+		8E47844D1A7772D2008A018F /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				8E47844E1A7772D2008A018F /* Info.plist */,
+			);
+			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		8E7F1F151A66425D00E21EB3 /* DMDynmicWaterfall */ = {
@@ -371,13 +445,6 @@
 				8E7F1F1B1A66425D00E21EB3 /* GTMDefines.h */,
 			);
 			path = GTMBase64;
-			sourceTree = "<group>";
-		};
-		8E7F1F1C1A66425D00E21EB3 /* MJRefresh */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = MJRefresh;
 			sourceTree = "<group>";
 		};
 		8E7F1F1D1A66425D00E21EB3 /* SQLite */ = {
@@ -465,6 +532,7 @@
 			);
 			dependencies = (
 				8E0CFCEB1A5E2EE90059CF2C /* PBXTargetDependency */,
+				8E4784531A7772D2008A018F /* PBXTargetDependency */,
 			);
 			name = DDKit;
 			productName = DDKit;
@@ -491,6 +559,23 @@
 			productReference = 8E2B0B9C1A3E7873006025C8 /* DDKitTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		8E47844A1A7772D2008A018F /* MBBKeyboard */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8E4784571A7772D2008A018F /* Build configuration list for PBXNativeTarget "MBBKeyboard" */;
+			buildPhases = (
+				8E4784471A7772D2008A018F /* Sources */,
+				8E4784481A7772D2008A018F /* Frameworks */,
+				8E4784491A7772D2008A018F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MBBKeyboard;
+			productName = MBBKeyboard;
+			productReference = 8E47844B1A7772D2008A018F /* MBBKeyboard.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -512,6 +597,10 @@
 						CreatedOnToolsVersion = 6.1.1;
 						TestTargetID = 8E2B0B821A3E7873006025C8;
 					};
+					8E47844A1A7772D2008A018F = {
+						CreatedOnToolsVersion = 6.1.1;
+						DevelopmentTeam = N97MLAFK8M;
+					};
 				};
 			};
 			buildConfigurationList = 8E2B0B7E1A3E7873006025C8 /* Build configuration list for PBXProject "DDKit" */;
@@ -530,6 +619,7 @@
 				8E2B0B821A3E7873006025C8 /* DDKit */,
 				8E2B0B9B1A3E7873006025C8 /* DDKitTests */,
 				8E0CFCDF1A5E2EE90059CF2C /* DDKitToday */,
+				8E47844A1A7772D2008A018F /* MBBKeyboard */,
 			);
 		};
 /* End PBXProject section */
@@ -556,6 +646,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		8E2B0B9A1A3E7873006025C8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8E4784491A7772D2008A018F /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -673,15 +770,19 @@
 				8E2B0B8F1A3E7873006025C8 /* ViewController.m in Sources */,
 				8E7F1F401A66425D00E21EB3 /* NSData-SQLitePersistence.m in Sources */,
 				8E2B0BF51A3E8751006025C8 /* NSString+DES3.m in Sources */,
+				8EE8C3681A666F8E0002DE40 /* UITabBarItem+Flatten.m in Sources */,
 				8E7F1F471A66425D00E21EB3 /* NSObject-SQLitePersistence.m in Sources */,
 				8E7F1F451A66425D00E21EB3 /* NSObject-ClassName.m in Sources */,
+				8E31D1A51A6D069200EE1C2B /* DDWaterfallCell.m in Sources */,
 				8E7F1F421A66425D00E21EB3 /* NSMutableArray-MultipleSort.m in Sources */,
+				8E31D1AB1A6D080D00EE1C2B /* DDWaterfallViewController.m in Sources */,
 				8E4970D81A3EE02000B76187 /* Post.m in Sources */,
 				8E7F1F4C1A66425D00E21EB3 /* SQLiteInstanceManager.m in Sources */,
 				8E7F1F4E1A66425D00E21EB3 /* UIColor-SQLitePersistentObject.m in Sources */,
 				8E7F1F481A66425D00E21EB3 /* NSString-NumberStuff.m in Sources */,
 				8E7F1F3F1A66425D00E21EB3 /* GTMBase64.m in Sources */,
 				8EF462501A46FBD6009BB729 /* UIImage+DDKit.m in Sources */,
+				8E31D1A41A6D069200EE1C2B /* DDWaterfallView.m in Sources */,
 				8E7F1F491A66425D00E21EB3 /* NSString-SQLiteColumnName.m in Sources */,
 				8E7F1F431A66425D00E21EB3 /* NSMutableData-SQLitePersistence.m in Sources */,
 				8E7F1F4A1A66425D00E21EB3 /* NSString-SQLitePersistence.m in Sources */,
@@ -689,6 +790,7 @@
 				8EF4624D1A465E88009BB729 /* DDSqliteViewController.m in Sources */,
 				8E1735B11A4A6980001DE0DC /* UILabel+AutoSize.m in Sources */,
 				8E2B0BEA1A3E8309006025C8 /* DDBasicModel.m in Sources */,
+				8E31D1AE1A6D388100EE1C2B /* PostCell.m in Sources */,
 				8EF4625A1A47F33B009BB729 /* UISegmentedControl+Flatten.m in Sources */,
 				8E7F1F4D1A66425D00E21EB3 /* SQLitePersistentObject.m in Sources */,
 				8E7F1F3E1A66425D00E21EB3 /* DMDynamicWaterfall.m in Sources */,
@@ -712,6 +814,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		8E4784471A7772D2008A018F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8E4784511A7772D2008A018F /* KeyboardViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -724,6 +834,11 @@
 			isa = PBXTargetDependency;
 			target = 8E2B0B821A3E7873006025C8 /* DDKit */;
 			targetProxy = 8E2B0B9D1A3E7873006025C8 /* PBXContainerItemProxy */;
+		};
+		8E4784531A7772D2008A018F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8E47844A1A7772D2008A018F /* MBBKeyboard */;
+			targetProxy = 8E4784521A7772D2008A018F /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -911,6 +1026,32 @@
 			};
 			name = Release;
 		};
+		8E4784551A7772D2008A018F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = MBBKeyboard/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		8E4784561A7772D2008A018F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_FILE = MBBKeyboard/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -949,6 +1090,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		8E4784571A7772D2008A018F /* Build configuration list for PBXNativeTarget "MBBKeyboard" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8E4784551A7772D2008A018F /* Debug */,
+				8E4784561A7772D2008A018F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};
