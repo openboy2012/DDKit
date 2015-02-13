@@ -175,7 +175,7 @@
                       [self.tableView reloadData];
                   }
               }
-              failure:^(NSError *error, NSDictionary *info) {
+              failure:^(NSError *error, NSString *message) {
               }];
 }
 

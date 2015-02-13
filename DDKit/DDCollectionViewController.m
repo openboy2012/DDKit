@@ -217,7 +217,7 @@
                   [dataList addObjectsFromArray:data];
                   [self.collectionView reloadData];
               }
-              failure:^(NSError *error, NSDictionary *info) {
+              failure:^(NSError *error, NSString *message) {
               }];
 }
 

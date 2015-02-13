@@ -159,19 +159,19 @@
 
 - (void)queryDB{
     [self timerStart];
-    NSDictionary *params = @{@"type":@(DBDataTypeFirstItem),@"criteria":[NSString stringWithFormat:@"WHERE pk = %d", rand()%10000]};
-//    NSDictionary *params = nil;
-    [Post getDataFromDBWithParameters:params success:^(id data) {
-        if([data isKindOfClass:[NSArray class]]){
-            NSArray *list = data;
-            [self timerEnd];
-            self.lblResult.text = [NSString stringWithFormat:@"成功查询了%lu条数据",[list count]];
-        }else{
-            [self timerEnd];
-            Post *p = data;
-            NSLog(@"post's name = %@ & text = %@ pk＝%d",p.id,p.text,p.pk);
-        }
-    }];
+//    NSDictionary *params = @{@"type":@(DBDataTypeFirstItem),@"criteria":[NSString stringWithFormat:@"WHERE pk = %d", rand()%10000]};
+////    NSDictionary *params = nil;
+//    [Post getDataFromDBWithParameters:params success:^(id data) {
+//        if([data isKindOfClass:[NSArray class]]){
+//            NSArray *list = data;
+//            [self timerEnd];
+//            self.lblResult.text = [NSString stringWithFormat:@"成功查询了%lu条数据",[list count]];
+//        }else{
+//            [self timerEnd];
+//            Post *p = data;
+//            NSLog(@"post's name = %@ & text = %@ pk＝%d",p.id,p.text,p.pk);
+//        }
+//    }];
 }
 
 - (void)clearDB{

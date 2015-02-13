@@ -100,7 +100,7 @@
                   [dataList addObjectsFromArray:data];
                   [self.waterfallView reloadData];
               }
-              failure:^(NSError *error, NSDictionary *info) {
+              failure:^(NSError *error, NSString *message) {
               }];
 }
 

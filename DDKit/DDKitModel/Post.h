@@ -6,9 +6,9 @@
 //  Copyright (c) 2014年 Dejohn Dong. All rights reserved.
 //
 
-#import "DDBasicModel.h"
+#import <DDModel.h>
 
-@interface User : DDBasicModel
+@interface User : DDModel
 
 @property (nonatomic, strong) NSNumber *id;
 @property (nonatomic, copy) NSString *username;
@@ -16,7 +16,7 @@
 
 @end
 
-@interface Post : DDBasicModel
+@interface Post : DDModel
 
 @property (nonatomic, copy) NSString *text;
 @property (nonatomic, strong) NSNumber *id;
@@ -26,8 +26,8 @@
 + (void)getPostList:(id)params
            parentVC:(id)viewController
             showHUD:(BOOL)show
-            success:(DDBasicSuccessBlock)success
-            failure:(DDBasicFailureBlock)failure;
+            success:(DDResponseSuccessBlock)success
+            failure:(DDResponseFailureBlock)failure;
 
 @end
 

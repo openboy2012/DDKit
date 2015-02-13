@@ -47,7 +47,7 @@
 - (id)init {
     self = [super init];
     if (self) {
-		self.dynamic = YES;
+		self.dynamic = NO;
     }
     return self;
 }
@@ -129,7 +129,7 @@
 	sectionRect.origin.y = CGRectGetMaxY(previousSectionRect)+sectionInsets.top;
 	
 	NSUInteger numberOfColumns = [self.delegate collectionView:cView layout:self numberOfColumnsInSection:sectionIdx];
-	sectionRect.size.width =	CGRectGetWidth(cView.frame) - (sectionInsets.left + sectionInsets.right);
+	sectionRect.size.width = CGRectGetWidth(cView.frame) - (sectionInsets.left + sectionInsets.right);
 	
 	CGFloat columnSpace = sectionRect.size.width - (interitemSpacing * (numberOfColumns-1));
 	CGFloat columnWidth = (columnSpace/numberOfColumns);

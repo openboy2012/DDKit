@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import <DDModelHttpClient.h>
 
 @interface AppDelegate ()
 
@@ -17,6 +18,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    [DDModelHttpClient startWithURL:@"https://api.app.net/"];
+    [DDModelHttpClient sharedInstance].securityPolicy = [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModeNone];
     return YES;
 }
 
