@@ -218,6 +218,7 @@
                   [self.collectionView reloadData];
               }
               failure:^(NSError *error, NSString *message) {
+                  NSLog(@"error = %@",error);
               }];
 }
 

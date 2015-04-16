@@ -1,1 +1,1 @@
-../../../DDModel/DDModel/Classes/DDModelHttpClient.h
+../../../DDModel/Classes/DDModelHttpClient.h

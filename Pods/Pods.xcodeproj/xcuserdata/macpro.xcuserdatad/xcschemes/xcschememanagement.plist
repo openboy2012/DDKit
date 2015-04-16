@@ -39,6 +39,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Pods-XMLDictionary.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -46,6 +51,52 @@
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
-	<dict/>
+	<dict>
+		<key>291DE6E595940DB7FB067841</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>47738E3958A0CA1D9C9002A7</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>798CD20F4617C34B4EBDAD24</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A5C75ED9581D76C313889DA2</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A9EE0E6C58B49DDAEA912F6D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>B621902A5E449F14ECE23F64</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>BDB122CB06B79631F4E939C9</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E80D3CFE9E8CB6C85294613C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F5E39DAEF2FA255060B4B72F</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+	</dict>
 </dict>
 </plist>

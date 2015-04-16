@@ -1,1 +1,1 @@
-../../../DDModel/DDModel/Classes/DDModelKit.h
+../../../DDModel/Classes/DDModelKit.h

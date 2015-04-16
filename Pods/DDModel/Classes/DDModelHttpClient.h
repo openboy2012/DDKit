@@ -9,13 +9,21 @@
 #import <Foundation/Foundation.h>
 #import <AFHTTPRequestOperationManager.h>
 #import <MBProgressHUD.h>
+#import "DDModel.h"
 
+typedef enum : NSUInteger {
+    DDResponseXML,
+    DDResponseJSON,
+    DDResponseOhter,
+} DDResponseType;
 
 @protocol DDHttpClientDelegate;
 
 @interface DDModelHttpClient : AFHTTPRequestOperationManager
 
 @property (nonatomic, strong) MBProgressHUD *hud;
+@property (nonatomic, strong) NSDictionary *checkKeyValue;
+@property (nonatomic) DDResponseType type;
 
 /**
  *  show hud if flag = YES
@@ -112,6 +120,16 @@
  */
 - (NSString *)responseStringHandler:(NSString *)responseString;
 
+/**
+ *   Check the response values is an avaliable value
+ *
+ *  @param values  origin value
+ *  @param failure failure block
+ *
+ *  @return true or false
+ */
+- (BOOL)checkResponseValue:(NSDictionary *)values failure:(DDResponseFailureBlock)failure;
+
 @end
 
 @protocol DDHttpClientDelegate <NSObject>
@@ -134,5 +152,16 @@
  *  @return new responseString
  */
 - (NSString *)decodeResponseString:(NSString *)responseString;
+
+/**
+ *  Check the response values is an avaliable value.
+    e.g. You will sign in an account but you press a wrong username/password, server will response a error for you, you can catch them use this protocol methods and handle this error exception.
+ *
+ *  @param values  should check value
+ *  @param failure failure block
+ *
+ *  @return true or false
+ */
+- (BOOL)checkResponseValueAvaliable:(NSDictionary *)values failure:(DDResponseFailureBlock)failure;
 
 @end

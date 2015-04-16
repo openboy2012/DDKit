@@ -1,54 +1,57 @@
 PODS:
-  - AFNetworking (2.5.0):
-    - AFNetworking/NSURLConnection (= 2.5.0)
-    - AFNetworking/NSURLSession (= 2.5.0)
-    - AFNetworking/Reachability (= 2.5.0)
-    - AFNetworking/Security (= 2.5.0)
-    - AFNetworking/Serialization (= 2.5.0)
-    - AFNetworking/UIKit (= 2.5.0)
-  - AFNetworking/NSURLConnection (2.5.0):
+  - AFNetworking (2.5.1):
+    - AFNetworking/NSURLConnection (= 2.5.1)
+    - AFNetworking/NSURLSession (= 2.5.1)
+    - AFNetworking/Reachability (= 2.5.1)
+    - AFNetworking/Security (= 2.5.1)
+    - AFNetworking/Serialization (= 2.5.1)
+    - AFNetworking/UIKit (= 2.5.1)
+  - AFNetworking/NSURLConnection (2.5.1):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-  - AFNetworking/NSURLSession (2.5.0):
+  - AFNetworking/NSURLSession (2.5.1):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-  - AFNetworking/Reachability (2.5.0)
-  - AFNetworking/Security (2.5.0)
-  - AFNetworking/Serialization (2.5.0)
-  - AFNetworking/UIKit (2.5.0):
+  - AFNetworking/Reachability (2.5.1)
+  - AFNetworking/Security (2.5.1)
+  - AFNetworking/Serialization (2.5.1)
+  - AFNetworking/UIKit (2.5.1):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
-  - DDModel (0.1.1):
-    - AFNetworking (~> 2.5.0)
+  - DDModel (0.4):
+    - AFNetworking (~> 2.5.1)
     - JTObjectMapping (~> 1.1.2)
-    - MBProgressHUD (~> 0.9)
-    - SQLitePersistentObject (~> 0.1)
+    - MBProgressHUD (~> 0.9.1)
+    - SQLitePersistentObject (~> 0.3)
+    - XMLDictionary (~> 1.4)
   - FMDB (2.5):
     - FMDB/standard (= 2.5)
   - FMDB/common (2.5)
   - FMDB/standard (2.5):
     - FMDB/common
   - JTObjectMapping (1.1.2)
-  - MBProgressHUD (0.9)
+  - MBProgressHUD (0.9.1)
   - SDWebImage (3.7.1):
     - SDWebImage/Core (= 3.7.1)
   - SDWebImage/Core (3.7.1)
-  - SQLitePersistentObject (0.2)
+  - SQLitePersistentObject (0.3)
+  - XMLDictionary (1.4)
 
 DEPENDENCIES:
-  - DDModel (~> 0.1)
+  - DDModel (~> 0.4)
   - FMDB (~> 2.4)
   - SDWebImage (~> 3.7.1)
 
 SPEC CHECKSUMS:
-  AFNetworking: 0f54cb5d16ce38c1b76948faffb8d5fb705021c7
-  DDModel: f0d85a12468e144decad2ae89d30ec20e38935f6
+  AFNetworking: 8bee59492a6ff15d69130efa4d0dc67e0094a52a
+  DDModel: 8cf8c634505cfb84aad1c75594d27bfd8e4419a4
   FMDB: 0efa188cf0dd1ce82c27a478cd5f5fa245308677
   JTObjectMapping: eb39b1ec7ecb7d1079a53595bbe46be8b2ed482b
-  MBProgressHUD: 2038dbcf3dce73215abed6001657043d53aa79a8
+  MBProgressHUD: f3747dcbd45a9e855a6b0674550651e0b7ed250c
   SDWebImage: 116e88633b5b416ea0ca4b334a4ac59cf72dd38d
-  SQLitePersistentObject: 7a272a1089792398a1a196708d561f423002c6aa
+  SQLitePersistentObject: bd9c88e2d5507ae5e953e40c01d7ac298a2dcbe2
+  XMLDictionary: 735e81b9a043e220b0d24e9d4f16719606f2e0fc
 
-COCOAPODS: 0.36.0.beta.2
+COCOAPODS: 0.36.0
