@@ -1,6 +1,5 @@
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
-HEADER_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/AFNetworking" "${PODS_ROOT}/Headers/Public/DDModel" "${PODS_ROOT}/Headers/Public/FMDB" "${PODS_ROOT}/Headers/Public/JTObjectMapping" "${PODS_ROOT}/Headers/Public/MBProgressHUD" "${PODS_ROOT}/Headers/Public/SDWebImage" "${PODS_ROOT}/Headers/Public/SQLitePersistentObject" "${PODS_ROOT}/Headers/Public/XMLDictionary"
-OTHER_CFLAGS = $(inherited) -isystem "${PODS_ROOT}/Headers/Public" -isystem "${PODS_ROOT}/Headers/Public/AFNetworking" -isystem "${PODS_ROOT}/Headers/Public/DDModel" -isystem "${PODS_ROOT}/Headers/Public/FMDB" -isystem "${PODS_ROOT}/Headers/Public/JTObjectMapping" -isystem "${PODS_ROOT}/Headers/Public/MBProgressHUD" -isystem "${PODS_ROOT}/Headers/Public/SDWebImage" -isystem "${PODS_ROOT}/Headers/Public/SQLitePersistentObject" -isystem "${PODS_ROOT}/Headers/Public/XMLDictionary"
-OTHER_LDFLAGS = $(inherited) -ObjC -l"Pods-AFNetworking" -l"Pods-DDModel" -l"Pods-FMDB" -l"Pods-JTObjectMapping" -l"Pods-MBProgressHUD" -l"Pods-SDWebImage" -l"Pods-SQLitePersistentObject" -l"Pods-XMLDictionary" -l"sqlite3" -l"sqlite3.0" -framework "CoreGraphics" -framework "ImageIO" -framework "MobileCoreServices" -framework "Security" -framework "SystemConfiguration"
-OTHER_LIBTOOLFLAGS = $(OTHER_LDFLAGS)
+HEADER_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/DDCategory" "${PODS_ROOT}/Headers/Public/MBProgressHUD" "${PODS_ROOT}/Headers/Public/SDWebImage"
+OTHER_CFLAGS = $(inherited) -isystem "${PODS_ROOT}/Headers/Public" -isystem "${PODS_ROOT}/Headers/Public/DDCategory" -isystem "${PODS_ROOT}/Headers/Public/MBProgressHUD" -isystem "${PODS_ROOT}/Headers/Public/SDWebImage"
+OTHER_LDFLAGS = $(inherited) -ObjC -l"DDCategory" -l"MBProgressHUD" -l"SDWebImage" -framework "CoreGraphics" -framework "ImageIO"
 PODS_ROOT = ${SRCROOT}/Pods
