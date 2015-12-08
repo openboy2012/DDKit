@@ -8,6 +8,21 @@
 
 #import "AppDelegate.h"
 
+#import "DDShareKit.h"
+#import "DDOAuthKit.h"
+#import "WXApi.h"
+#import "WeiboSDK.h"
+
+//微信Key
+#define WeixinAppId                         @"wxd930ea5d5a258f4f"
+
+//新浪微博Key
+#define WeiboAppKey                         @"2045436852"
+#define WeiboAppRedirectURI                 @"http://www.sina.com"
+
+//QQ联合登陆Key
+#define TencentAppId                        @"222222"
+
 @interface AppDelegate ()
 
 @end
@@ -17,6 +32,15 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    [WXApi registerApp:WeixinAppId];
+    [WeiboSDK registerApp:WeiboAppKey];
+    
+    [[DDShareKit manager] startWithTencentId:TencentAppId];
+
+    [[DDOAuthKit manager] registerTencentAppId:TencentAppId];
+//    [[DDOAuthKit manager] registerWeixinAppKey:WeixinAppId
+//                               weixinAppSecret:WeixinAppSecret];
     return YES;
 }
 
@@ -40,6 +64,12 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation{
+    
+    [DDShareKit handleOpenURL:url delegate:nil];
+    return [DDOAuthKit handleOpenURL:url];
 }
 
 @end
