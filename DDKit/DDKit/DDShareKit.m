@@ -1,9 +1,9 @@
 //
 //  DDShareKit.m
-//  DDShareKit
+//  DDKit
 //
-//  Created by Diaoshu on 15-3-18.
-//  Copyright (c) 2015年 DDKit. All rights reserved.
+//  Created by DeJohn Dong on 15/12/8.
+//  Copyright © 2015年 ddkit. All rights reserved.
 //
 
 #import "DDShareKit.h"
@@ -11,9 +11,10 @@
 #import <TencentOpenAPI/TencentOAuth.h>
 #import <TencentOpenAPI/WeiBoAPI.h>
 #import <MessageUI/MessageUI.h>
-#import <UIView+DDKit.h>
+#import "DDKit.h"
 #import "WXApi.h"
 #import "WeiboSDK.h"
+#import "DDKitManager.h"
 
 #define DDKitAppDisplayName [[NSBundle mainBundle] infoDictionary][@"CFBundleDisplayName"]
 #define DDKitImageWithImageName(imageName) [UIImage imageNamed:[NSString stringWithFormat:@"DDKit_iOS_Bundle.bundle/icons/%@",imageName]]
@@ -27,7 +28,7 @@
 
 @implementation DDShareItemButton
 
-- (instancetype)initWithFrame:(CGRect)frame{
+- (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if(self){
         if(!_imageView){
@@ -76,7 +77,7 @@
     
     self.carryView.backgroundColor = [UIColor whiteColor];
     
-    if(!self.platformScrollView){
+    if(!self.platformScrollView) {
         self.platformScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0.0, 40.0f, self.view.bounds.size.width, 200.0f)];
         [self getSharePlatforms];
         for (int i = 0 ; i < shareItems.count ; i ++) {
@@ -88,9 +89,6 @@
             btnV.tag = [item[@"type"] unsignedIntegerValue];
             UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(buttonClicked:)];
             btnV.lblTitle.text = item[@"title"];
-//            NSBundle *resourceBundle = [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"DDKitBundle" ofType:@"bundle"]];
-//            NSString *imagePath = [resourceBundle pathForResource:item[@"icon"] ofType:@"png" inDirectory:@"icons"];
-//            btnV.imageView.image = [UIImage imageWithContentsOfFile:imagePath];
             btnV.imageView.image = DDKitImageWithImageName(item[@"icon"]);
             [btnV addGestureRecognizer:tap];
             [self.platformScrollView addSubview:btnV];
@@ -121,7 +119,7 @@
     [self.view addGestureRecognizer:tapHide];
     
     if(!tcOauth)
-        tcOauth = [[TencentOAuth alloc] initWithAppId:@""
+        tcOauth = [[TencentOAuth alloc] initWithAppId:[DDKitManager sharedManager].tencentId
                                           andDelegate:self];
 }
 
@@ -163,8 +161,8 @@
 - (void)cgiRequest:(TCAPIRequest *)request didResponse:(APIResponse *)response{
     if(response.retCode == URLREQUEST_SUCCEED){
         [UIView dd_showMessage:@"腾讯微博分享成功"];
-        if([self.delegate respondsToSelector:@selector(callBack:)]){
-            [self.delegate callBack:[self.shareContent callbackParams]];
+        if([self.delegate respondsToSelector:@selector(shareKitFinished:)]){
+            [self.delegate shareKitFinished:[self.shareContent callbackParams]];
         }
     }
 }
@@ -176,15 +174,15 @@
         SendMessageToQQResp *response = (SendMessageToQQResp *)resp;
         if([response.result isEqualToString:@"0"]){
             [UIView dd_showMessage:@"分享成功"];
-            if([self.delegate respondsToSelector:@selector(callBack:)]){
-                [self.delegate callBack:[self.shareContent callbackParams]];
+            if([self.delegate respondsToSelector:@selector(shareKitFinished:)]){
+                [self.delegate shareKitFinished:[self.shareContent callbackParams]];
             }
         }
     }else if([resp isKindOfClass:[SendMessageToWXResp class]]){
         if(((SendMessageToWXResp *)resp).errCode == 0){
             [UIView dd_showMessage:@"微信分享成功"];
-            if([self.delegate respondsToSelector:@selector(callBack:)]){
-                [self.delegate callBack:[self.shareContent callbackParams]];
+            if([self.delegate respondsToSelector:@selector(shareKitFinished:)]){
+                [self.delegate shareKitFinished:[self.shareContent callbackParams]];
             }
         }else if(((SendMessageToWXResp *)resp).errCode == -2){
             [UIView dd_showMessage:@"微信分享已取消"];
@@ -194,11 +192,11 @@
     }
 }
 
-- (void)onReq:(QQBaseReq *)req{
+- (void)onReq:(QQBaseReq *)req {
     
 }
 
-- (void)isOnlineResponse:(NSDictionary *)response{
+- (void)isOnlineResponse:(NSDictionary *)response {
     
 }
 
@@ -229,8 +227,8 @@
         switch (wbResp.statusCode) {
             case WeiboSDKResponseStatusCodeSuccess:{
                 msg = @"新浪微博分享成功";
-                if([self.delegate respondsToSelector:@selector(callBack:)]){
-                    [self.delegate callBack:[self.shareContent callbackParams]];
+                if([self.delegate respondsToSelector:@selector(shareKitFinished:)]){
+                    [self.delegate shareKitFinished:[self.shareContent callbackParams]];
                 }
             }
                 break;
@@ -249,7 +247,7 @@
 
 #pragma mark - Public Methods
 
-+ (instancetype)manager{
++ (instancetype)sharedKit {
     static DDShareKit *shareKit = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -258,25 +256,19 @@
     return shareKit;
 }
 
-- (void)startWithTencentId:(NSString *)tencentId{
-    if(!tcOauth)
-        tcOauth = [[TencentOAuth alloc] initWithAppId:tencentId?:@""
-                                          andDelegate:self];
-}
-
 + (BOOL)handleOpenURL:(NSURL *)url delegate:(id<DDShareKitDelegate>)delegate{
-    [DDShareKit manager].delegate = delegate;
+    [DDShareKit sharedKit].delegate = delegate;
     if([url.scheme hasPrefix:@"tencent"]){
-        return [TencentOAuth HandleOpenURL:url] && [QQApiInterface handleOpenURL:url delegate:(id<QQApiInterfaceDelegate>)[DDShareKit manager]];
+        return [TencentOAuth HandleOpenURL:url] && [QQApiInterface handleOpenURL:url delegate:(id<QQApiInterfaceDelegate>)[DDShareKit sharedKit]];
     }else if([url.scheme hasPrefix:@"wx"] && [url.host isEqualToString:@"platformId=wechat"]){
-        return [WXApi handleOpenURL:url delegate:(id<WXApiDelegate>)[DDShareKit manager]];
+        return [WXApi handleOpenURL:url delegate:(id<WXApiDelegate>)[DDShareKit sharedKit]];
     }else if([url.scheme isEqualToString:@"wb"]){
-        return [WeiboSDK handleOpenURL:url delegate:(id<WeiboSDKDelegate>)[DDShareKit manager]];
+        return [WeiboSDK handleOpenURL:url delegate:(id<WeiboSDKDelegate>)[DDShareKit sharedKit]];
     }
     return NO;
 }
 
-- (void)show{
+- (void)show {
     if(!maskLayer)
         maskLayer = [CALayer layer];
     maskLayer.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.3].CGColor;
@@ -329,7 +321,7 @@
     });
 }
 
-- (void)hide{
+- (void)hide {
     self.shareKitTitle = nil;
     self.lblTitle.text = @"分享到";
     CGRect frame = self.carryView.frame;
@@ -361,14 +353,14 @@
     [shareItems addObject:@{@"icon":@"share_copy",@"title":@"复制链接",@"type":@(DDShareTypeCopy)}];
 }
 
-- (void)buttonClicked:(id)sender{
+- (void)buttonClicked:(id)sender {
     if(!imageReady){
         [UIView dd_showMessage:@"图片未处理完毕,请稍候..."];
     }
     [self shareToPlatfroms:[sender view].tag];
 }
 
-- (void)shareToPlatfroms:(DDShareType)type{
+- (void)shareToPlatfroms:(DDShareType)type {
     switch (type) {
         case DDShareTypeCopy:{
             UIPasteboard *pboard = [UIPasteboard generalPasteboard];
@@ -428,7 +420,7 @@
 - (void)shareToQQPlatform:(DDShareType)type{
     [self.view dd_showMessageHUD:@"正在分享，请稍候..."];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul), ^{
-        if(type == DDShareTypeTCWB){
+        if(type == DDShareTypeTCWB) {
             WeiBo_add_pic_t_POST *tcwbRequest = [[WeiBo_add_pic_t_POST alloc] init];
             tcwbRequest.param_pic = self.shareContent.image;
             tcwbRequest.param_content = [self convertString:self.shareContent];
@@ -437,7 +429,7 @@
                 [tcOauth sendAPIRequest:tcwbRequest callback:self];
                 [self.view dd_removeHUD];
             });
-        }else{
+        } else {
             QQApiNewsObject *obj = [[QQApiNewsObject alloc] initWithURL:[NSURL URLWithString:self.shareContent.link] title:self.shareContent.title description:self.shareContent.content previewImageData:UIImageJPEGRepresentation(self.shareContent.image, 0.5) targetContentType:QQApiURLTargetTypeNews];
             SendMessageToQQReq *req = [SendMessageToQQReq reqWithContent:obj];
             dispatch_async(dispatch_get_main_queue(), ^{

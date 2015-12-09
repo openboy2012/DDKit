@@ -1,9 +1,9 @@
 //
 //  DDShareItem.m
-//  DDShareKit
+//  DDKit
 //
-//  Created by Diaoshu on 15-3-19.
-//  Copyright (c) 2015年 DDKit. All rights reserved.
+//  Created by DeJohn Dong on 15/12/8.
+//  Copyright © 2015年 ddkit. All rights reserved.
 //
 
 #import "DDShareItem.h"

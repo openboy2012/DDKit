@@ -1,9 +1,9 @@
 //
-//  MBBOAuthKit.m
-//  MBBCommon
+//  DDOAuthKit.m
+//  DDKit
 //
-//  Created by Diaoshu on 15-3-24.
-//  Copyright (c) 2015年 MBaoBao inc. All rights reserved.
+//  Created by DeJohn Dong on 15/12/8.
+//  Copyright © 2015年 ddkit. All rights reserved.
 //
 
 #import "DDOAuthKit.h"
@@ -11,11 +11,11 @@
 #import <AlipaySDK/AlipaySDK.h>
 #import "WeiboSDK.h"
 #import "WXApi.h"
+#import "WechatAuthSDK.h"
 #import "DDKit.h"
+#import "DDKitManager.h"
 
-
-
-@interface DDOAuthKit()<WeiboSDKDelegate,WXApiDelegate,TencentLoginDelegate,TencentSessionDelegate,TencentApiInterfaceDelegate>{
+@interface DDOAuthKit()<WeiboSDKDelegate, WXApiDelegate, TencentLoginDelegate, TencentSessionDelegate,TencentApiInterfaceDelegate> {
     TencentOAuth *tcOauth;
     OAuthResult oauthResult;
     
@@ -29,7 +29,7 @@
 
 @implementation DDOAuthKit
 
-+ (instancetype)manager {
++ (instancetype)sharedOAuthKit {
     static DDOAuthKit *kit = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -54,7 +54,7 @@
     }
 }
 
-- (void)tencentDidNotLogin:(BOOL)cancelled{
+- (void)tencentDidNotLogin:(BOOL)cancelled {
     if (cancelled){
         [UIView dd_showMessage:@"QQ授权已取消"];
     } else {
@@ -69,7 +69,7 @@
 #pragma mark - TencentSession Delegate Methods
 
 - (void)getUserInfoResponse:(APIResponse *)response {
-    if (response.retCode == URLREQUEST_SUCCEED){
+    if (response.retCode == URLREQUEST_SUCCEED) {
         NSDictionary *tcUserDict = response.jsonResponse;
         NSDictionary *params = @{@"unionType":@(DDUnionLoginTypeQQ),
                                  @"openId":[tcOauth openId],
@@ -80,7 +80,7 @@
         if(oauthResult){
             oauthResult(params);
         }
-    }else{
+    } else {
         [UIView dd_showDetailMessage:response.errorMsg onParentView:nil];
     }
 }
@@ -91,8 +91,8 @@
     if([resp isKindOfClass:[SendAuthResp class]]) {
         SendAuthResp *authResp = (SendAuthResp *)resp;
         if(authResp.errCode == 0 && 0 != [authResp.code length]){
-            [self wxOAuthByCode:authResp.code];
             [UIView dd_showMessage:@"微信授权成功"];
+            [self wxOAuthByCode:authResp.code];
         }else if(authResp.errCode == -2){
             [UIView dd_showMessage:@"微信授权已取消"];
         }else{
@@ -103,7 +103,7 @@
 
 #pragma mark - WeiboSDK Delegate Methods
 
-- (void)didReceiveWeiboResponse:(WBBaseResponse *)response{
+- (void)didReceiveWeiboResponse:(WBBaseResponse *)response {
     if([response isKindOfClass:[WBAuthorizeResponse class]]){
         if(response.statusCode == WeiboSDKResponseStatusCodeSuccess){
             WBAuthorizeResponse *wbResp = (WBAuthorizeResponse *)response;
@@ -122,17 +122,13 @@
 
 #pragma mark - Custom Methods
 
-- (void)registerTencentAppId:(NSString *)appId{
-    tencentAppId = appId;
-}
-
-- (void)doOAuthByQQ:(OAuthResult)result{
+- (void)dd_doOAuthByQQ:(OAuthResult)result{
     oauthResult = result;
     
     if(([TencentOAuth iphoneQQInstalled] && [TencentOAuth iphoneQQSupportSSOLogin]) ||
        ([TencentOAuth iphoneQZoneInstalled] && [TencentOAuth iphoneQZoneSupportSSOLogin])){
         if(!tcOauth)
-            tcOauth = [[TencentOAuth alloc] initWithAppId:tencentAppId?:@""
+            tcOauth = [[TencentOAuth alloc] initWithAppId:[DDKitManager sharedManager].tencentId
                                               andDelegate:self];
         NSArray *_permissions = [NSArray arrayWithObjects:
                                  kOPEN_PERMISSION_GET_USER_INFO,
@@ -144,11 +140,11 @@
     }
 }
 
-- (void)doOAuthByAlipay:(OAuthResult)result {
+- (void)dd_doOAuthByAlipay:(OAuthResult)result {
     oauthResult = result;
-    NSString *pid = @"2088301453725453";
-    NSString *appid = @"2015010500023351";
-    NSString *returnUri = @"mbb://";
+    NSString *pid = @"";
+    NSString *appid = @"";
+    NSString *returnUri = @"";
     
     APayAuthInfo *info = [[APayAuthInfo alloc] initWithAppID:appid
                                                          pid:pid
@@ -158,16 +154,17 @@
     }];
 }
 
-- (void)doOAuthByWeibo:(OAuthResult)result{
+- (void)dd_doOAuthByWeibo:(NSString *)rediectUrl completion:(OAuthResult)result {
     oauthResult = result;
     WBAuthorizeRequest *weiboReq = [WBAuthorizeRequest request];
-    weiboReq.redirectURI = @"https://openapi.baidu.com/social/oauth/2.0/receiver";
+    weiboReq.redirectURI = rediectUrl?:@"https://api.weibo.com/oauth2/default.html";
     weiboReq.scope = @"all";
     [WeiboSDK sendRequest:weiboReq];
 }
 
-- (void)doOAuthByWeixin:(OAuthResult)result{
+- (void)dd_doOAuthByWeixin:(NSString *)appSecrect completion:(OAuthResult)result {
     oauthResult = result;
+    weixinSecretKey = appSecrect;
     
     if(![WXApi isWXAppInstalled] || ![WXApi isWXAppSupportApi]){
         [UIView dd_showDetailMessage:@"您的手机没有安装微信客户端，无法使用该功能" onParentView:nil];
@@ -177,14 +174,9 @@
     //构造SendAuthReq结构体
     SendAuthReq *req = [[SendAuthReq alloc] init];
     req.scope = @"snsapi_userinfo" ;
-    req.state = @"mbaobao.com" ;
+    req.state = @"ddkit.com" ;
     //第三方向微信终端发送一个SendAuthReq消息结构
     [WXApi sendReq:req];
-}
-
-- (void)registerWeixinAppKey:(NSString *)appKey weixinAppSecret:(NSString *)secret{
-    weixinAppKey = appKey?:@"";
-    weixinSecretKey = secret?:@"";
 }
 
 #pragma mark - Custom Methods
@@ -217,7 +209,8 @@
 
 #pragma mark - Weixin OAuth Handle Methods
 
-- (void)wxOAuthByCode:(NSString *)code{
+- (void)wxOAuthByCode:(NSString *)code
+{
     NSString *authURL = [NSString stringWithFormat:@"https://api.weixin.qq.com/sns/oauth2/access_token?appid=%@&secret=%@&code=%@&grant_type=authorization_code",weixinAppKey?:@"",weixinSecretKey?:@"",code];
     NSURLRequest *authRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:authURL] cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:15];
     NSData *data = [NSURLConnection sendSynchronousRequest:authRequest returningResponse:nil error:nil];
@@ -244,15 +237,15 @@
     if ([url.host isEqualToString:@"platformapi"]) {
         //支付宝钱包快登授权返回authCode
         [[AlipaySDK defaultService] processAuthResult:url standbyCallback:^(NSDictionary *resultDic) {
-            [DDOAuthKit manager]->oauthResult(resultDic);
+            [DDOAuthKit sharedOAuthKit]->oauthResult(resultDic);
         }];
         return YES;
     }else if([url.scheme hasPrefix:@"tencent"]) {
         return [TencentOAuth HandleOpenURL:url];
     }else if([url.scheme hasPrefix:@"wb"]) {
-        return [WeiboSDK handleOpenURL:url delegate:[DDOAuthKit manager]];
+        return [WeiboSDK handleOpenURL:url delegate:[DDOAuthKit sharedOAuthKit]];
     }else if ([url.scheme hasPrefix:@"wx"] && [url.host isEqualToString:@"oauth"]) {
-        return [WXApi handleOpenURL:url delegate:[DDOAuthKit manager]];
+        return [WXApi handleOpenURL:url delegate:[DDOAuthKit sharedOAuthKit]];
     }
     return NO;
 }

@@ -2,8 +2,8 @@
 //  DDShareKit.h
 //  DDShareKit
 //
-//  Created by Diaoshu on 15-3-18.
-//  Copyright (c) 2015年 DDKit. All rights reserved.
+//  Created by DeJohn Dong on 15/12/8.
+//  Copyright © 2015年 ddkit. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
@@ -32,7 +32,7 @@ typedef NS_OPTIONS(NSUInteger, DDShareType) {
  *
  *  @return DDShareKit initalize object
  */
-+ (instancetype)manager;
++ (instancetype)sharedKit;
 
 /**
  *  show the shareKit actionSheet
@@ -47,13 +47,6 @@ typedef NS_OPTIONS(NSUInteger, DDShareType) {
 - (void)shareImmediately:(DDShareType)type;
 
 /**
- *  Start a tencent object
- *
- *  @param tencentId tencent id
- */
-- (void)startWithTencentId:(NSString *)tencentId;
-
-/**
  *  handle the open url
  *
  *  @param url      url
@@ -66,6 +59,6 @@ typedef NS_OPTIONS(NSUInteger, DDShareType) {
 @protocol DDShareKitDelegate <NSObject>
 
 @optional
-- (void)callBack:(id)callbackInfo;
+- (void)shareKitFinished:(id)callbackInfo;
 
 @end

@@ -33,30 +33,30 @@
     shareContent.link = @"http://m.baidu.com";
     shareContent.imageURL = @"http://d.hiphotos.baidu.com/zhidao/pic/item/562c11dfa9ec8a13e028c4c0f603918fa0ecc0e4.jpg";
     shareContent.type = @"detail";
-    [DDShareKit manager].shareContent = shareContent;
-    [[DDShareKit manager] show];
+    [DDShareKit sharedKit].shareContent = shareContent;
+    [[DDShareKit sharedKit] show];
 }
 
 - (IBAction)wxOAuth:(id)sender{
-    [[DDOAuthKit manager] doOAuthByWeixin:^(id result) {
+    [[DDOAuthKit sharedOAuthKit] dd_doOAuthByWeixin:nil completion:^(id result) {
         NSLog(@"result = %@",result);
     }];
 }
 
 - (IBAction)alipayOAuth:(id)sender{
-    [[DDOAuthKit manager] doOAuthByAlipay:^(id result) {
+    [[DDOAuthKit sharedOAuthKit] dd_doOAuthByAlipay:^(id result) {
         NSLog(@"result = %@",result);
     }];
 }
 
 - (IBAction)wbOAuth:(id)sender{
-    [[DDOAuthKit manager] doOAuthByWeibo:^(id result) {
+    [[DDOAuthKit sharedOAuthKit] dd_doOAuthByWeibo:@"http://www.sina.com" completion:^(id result) {
         NSLog(@"result = %@",result);
     }];
 }
 
 - (IBAction)qqOAuth:(id)sender{
-    [[DDOAuthKit manager] doOAuthByQQ:^(id result) {
+    [[DDOAuthKit sharedOAuthKit] dd_doOAuthByQQ:^(id result) {
         NSLog(@"result = %@",result);
     }];
 }

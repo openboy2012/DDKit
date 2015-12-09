@@ -2,8 +2,8 @@
 //  DDOAuthKit.h
 //  DDKit
 //
-//  Created by Diaoshu on 15-3-24.
-//  Copyright (c) 2015年 DDKit inc. All rights reserved.
+//  Created by DeJohn Dong on 15/12/8.
+//  Copyright © 2015年 ddkit. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -19,40 +19,37 @@ typedef void(^ OAuthResult)(id result);
 
 @interface DDOAuthKit : NSObject
 
-+ (instancetype)manager;
-
-- (void)registerTencentAppId:(NSString *)appId;
-
-- (void)registerWeixinAppKey:(NSString *)appKey
-             weixinAppSecret:(NSString *)secret;
++ (instancetype)sharedOAuthKit;
 
 /**
  *  OAtuth Login By QQ
  *
  *  @param result oauth result
  */
-- (void)doOAuthByQQ:(OAuthResult)result;
+- (void)dd_doOAuthByQQ:(OAuthResult)result;
 
 /**
  *  OAtuth Login By Weixin
  *
  *  @param result oauth result
  */
-- (void)doOAuthByWeixin:(OAuthResult)result;
+- (void)dd_doOAuthByWeixin:(NSString *)appSecrect
+                completion:(OAuthResult)result;
 
 /**
  *  OAtuth Login By Weibo
  *
  *  @param result oauth result
  */
-- (void)doOAuthByWeibo:(OAuthResult)result;
+- (void)dd_doOAuthByWeibo:(NSString *)rediectUrl
+               completion:(OAuthResult)result;
 
 /**
  *  OAtuth Login By Alipay
  *
  *  @param result oauth result
  */
-- (void)doOAuthByAlipay:(OAuthResult)result;
+- (void)dd_doOAuthByAlipay:(OAuthResult)result;
 
 /**
  *  Handle the OpenURL

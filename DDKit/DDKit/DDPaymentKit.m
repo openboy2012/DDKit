@@ -1,9 +1,9 @@
 //
-//  MBBPaymentKit.m
-//  MBaoBao
+//  DDPaymentKit.m
+//  DDKit
 //
-//  Created by Diaoshu on 14-6-4.
-//  Copyright (c) 2014年 Jia Xing My Bag Co., Ltd. All rights reserved.
+//  Created by DeJohn Dong on 15/12/8.
+//  Copyright © 2015年 ddkit. All rights reserved.
 //
 
 #import "DDPaymentKit.h"
@@ -29,8 +29,8 @@
 #define weixinPayNotifyURL @""
 #define weixinTraceId @""
 
-NSString *const PaymentByWeixinNotification = @"PaymentByWeixinNotification";
-NSString *const PaymentByAlipayNotification = @"PaymentByAlipayNotification";
+NSString *const DDPaymentByWeixinNotification = @"DDPaymentByWeixinNotification";
+NSString *const DDPaymentByAlipayNotification = @"DDPaymentByAlipayNotification";
 
 
 @interface DDPaymentKit()<WXApiDelegate>{
@@ -39,7 +39,7 @@ NSString *const PaymentByAlipayNotification = @"PaymentByAlipayNotification";
     NSString *weixinAppId;
 }
 
-@property (nonatomic, strong) PaymentResult callBack;
+@property (nonatomic, strong) DDPaymentResult callBack;
 
 @end
 
@@ -53,8 +53,8 @@ NSString *const PaymentByAlipayNotification = @"PaymentByAlipayNotification";
 - (instancetype)init{
     self = [super init];
     if(self){
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(paymentResultByWeixin:) name:PaymentByWeixinNotification object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(paymentResultByAlipay:) name:PaymentByAlipayNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(paymentResultByWeixin:) name:DDPaymentByWeixinNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(paymentResultByAlipay:) name:DDPaymentByAlipayNotification object:nil];
     }
     return self;
 }
@@ -114,11 +114,11 @@ NSString *const PaymentByAlipayNotification = @"PaymentByAlipayNotification";
 
 #pragma mark - Public Methods
 
-+ (void)registerWeixinPay:(NSString *)appId{
++ (void)registerWeixinPay:(NSString *)appId {
     [DDPaymentKit sharedPaymentKit] -> weixinAppId = appId;
 }
 
-- (void)b2cPayment:(NSDictionary *)params callBack:(PaymentResult)callback{
+- (void)b2cPayment:(NSDictionary *)params callBack:(DDPaymentResult)callback {
     self.callBack = callback;
     self.partner = AlipayPartner;
     self.seller = AlipaySeller;
@@ -128,7 +128,7 @@ NSString *const PaymentByAlipayNotification = @"PaymentByAlipayNotification";
     [self handleAlipayInfo:params];
 }
 
-- (void)c2cPayment:(NSDictionary *)params callBack:(PaymentResult)callback{
+- (void)c2cPayment:(NSDictionary *)params callBack:(DDPaymentResult)callback{
 
 }
 
@@ -147,10 +147,10 @@ NSString *const PaymentByAlipayNotification = @"PaymentByAlipayNotification";
     self.itBPay = @"30m";
     
     //应用注册scheme用于安全支付成功后重新唤起商户应用
-    NSString *appScheme = @"best";
+    NSString *appScheme = @"ddkit";
     NSString *orderSpec = [self description];
     
-    id <DataSigner> signer = CreateRSADataSigner(rsaPrivateKey);
+    id<DataSigner> signer = CreateRSADataSigner(rsaPrivateKey);
     
     NSString *signedString = [signer signString:orderSpec];
     
@@ -357,12 +357,12 @@ NSString *const PaymentByAlipayNotification = @"PaymentByAlipayNotification";
 
 #pragma mark - WXApiDelegate Methods
 
-- (void)onResp:(BaseResp *)resp{
+- (void)onResp:(BaseResp *)resp {
     if(![resp isKindOfClass:[PayResp class]])
         return;
     switch (resp.errCode) {
         case 0:{
-            [[NSNotificationCenter defaultCenter] postNotificationName:PaymentByWeixinNotification object:nil userInfo:@{@"PaymentStatus":[NSNumber numberWithBool:YES]}];
+            [[NSNotificationCenter defaultCenter] postNotificationName:DDPaymentByWeixinNotification object:nil userInfo:@{@"PaymentStatus":[NSNumber numberWithBool:YES]}];
         }
             break;
         case -2:{
@@ -377,12 +377,12 @@ NSString *const PaymentByAlipayNotification = @"PaymentByAlipayNotification";
 
 #pragma mark - OpenURL Handle Methods
 
-+ (BOOL)handleOpenURL:(NSURL *)url{
++ (BOOL)handleOpenURL:(NSURL *)url {
     //如果极简SDK不可用，会跳转支付宝钱包进行支付，需要将支付宝钱包的支付结果回传给SDK
     if ([url.host isEqualToString:@"safepay"]) {
         [[AlipaySDK defaultService] processOrderWithPaymentResult:url
                                                   standbyCallback:^(NSDictionary *resultDic) {
-                                                      [[NSNotificationCenter defaultCenter] postNotificationName:PaymentByAlipayNotification
+                                                      [[NSNotificationCenter defaultCenter] postNotificationName:DDPaymentByAlipayNotification
                                                                                                           object:resultDic];
                                                   }];
         return YES;

@@ -7,11 +7,9 @@
 //
 
 #import "AppDelegate.h"
-
+#import "DDKitManager.h"
 #import "DDShareKit.h"
 #import "DDOAuthKit.h"
-#import "WXApi.h"
-#import "WeiboSDK.h"
 
 //微信Key
 #define WeixinAppId                         @"wxd930ea5d5a258f4f"
@@ -33,12 +31,16 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
-    [WXApi registerApp:WeixinAppId];
-    [WeiboSDK registerApp:WeiboAppKey];
+    [[DDKitManager sharedManager] registerWeixinAppId:WeixinAppId];
+    [[DDKitManager sharedManager] registerTencentId:TencentAppId];
+    [[DDKitManager sharedManager] registerWeiboAppId:WeiboAppKey];
     
-    [[DDShareKit manager] startWithTencentId:TencentAppId];
-
-    [[DDOAuthKit manager] registerTencentAppId:TencentAppId];
+//    [WXApi registerApp:WeixinAppId];
+//    [WeiboSDK registerApp:WeiboAppKey];
+//    
+//    [[DDShareKit sharedKit] startWithTencentId:TencentAppId];
+//
+//    [[DDOAuthKit sharedOAuthKit] registerTencentAppId:TencentAppId];
 //    [[DDOAuthKit manager] registerWeixinAppKey:WeixinAppId
 //                               weixinAppSecret:WeixinAppSecret];
     return YES;

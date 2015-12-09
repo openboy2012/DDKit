@@ -1,9 +1,9 @@
 //
-//  MBBPaymentKit.h
-//  MBaoBao
+//  DDPaymentKit.h
+//  DDKit
 //
-//  Created by Diaoshu on 14-6-4.
-//  Copyright (c) 2014年 Jia Xing My Bag Co., Ltd. All rights reserved.
+//  Created by DeJohn Dong on 15/12/8.
+//  Copyright © 2015年 ddkit. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -11,7 +11,7 @@
 extern NSString *const DDPaymentByWeixinNotification;
 extern NSString *const DDPaymentByAlipayNotification;
 
-typedef void(^ PaymentResult)(BOOL result);
+typedef void(^ DDPaymentResult)(BOOL result);
 
 @interface DDPaymentKit : NSObject
 
@@ -31,11 +31,9 @@ typedef void(^ PaymentResult)(BOOL result);
 
 + (instancetype)sharedPaymentKit;
 
-+ (void)registerWeixinPay:(NSString *)appId;
+- (void)b2cPayment:(NSDictionary *)params callBack:(DDPaymentResult)callback;
 
-- (void)b2cPayment:(NSDictionary *)params callBack:(PaymentResult)callback;
-
-- (void)c2cPayment:(NSDictionary *)params callBack:(PaymentResult)callback;
+- (void)c2cPayment:(NSDictionary *)params callBack:(DDPaymentResult)callback;
 
 + (BOOL)handleOpenURL:(NSURL *)url;
 
