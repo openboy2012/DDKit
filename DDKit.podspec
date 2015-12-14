@@ -10,7 +10,7 @@ s.ios.deployment_target = '6.0'
 s.requires_arc = true
 s.resources = 'DDKit/DDKit_iOS_Bundle.bundle'
 s.subspec 'WX' do |ss|
- ss.source_files = 'DDKit/Vender/WX/WXApi.h','DDKit/Vender/WX/WXApiObject.h'
+ ss.source_files = 'DDKit/Vender/WX/WXApi.h','DDKit/Vender/WX/WXApiObject.h','DDKit/Vender/WX/WechatAuthSDK.h'
  ss.vendored_libraries = 'DDKit/Vender/WX/libWeChatSDK.a'
  ss.libraries = 'z','sqlite3'
  ss.framework = 'SystemConfiguration'
@@ -30,7 +30,7 @@ end
 s.subspec 'AlipaySDK' do |ss|
  ss.dependency 'DDKit/OpenSSL'
 
- ss.source_files = 'DDKit/Vender/Alipay/Util/*.{h,m}'
+ ss.source_files = 'DDKit/Vender/AlipayUtil/*.{h,m}'
  ss.public_header_files = 'DDKit/Vender/Alipay/AlipaySDK.framework/Headers/*h'
  ss.vendored_frameworks = 'DDKit/Vender/Alipay/AlipaySDK.framework'
  ss.resource = 'DDKit/Vender/Alipay/AlipaySDK.bundle'
@@ -61,5 +61,7 @@ s.subspec 'DDOAuthKit' do |ss|
 
  ss.source_files = 'DDKit/DDOAuthKit.{h,m}'
 end
+
+s.source_files = 'DDKit/DDKitManager.{h,m}'
 
 end

@@ -2,6 +2,34 @@ PODS:
   - DDCategory (0.4.2):
     - MBProgressHUD (= 0.9.1)
     - SDWebImage (= 3.7.3)
+  - DDKit (0.1):
+    - DDKit/AlipaySDK (= 0.1)
+    - DDKit/DDOAuthKit (= 0.1)
+    - DDKit/DDPaymentKit (= 0.1)
+    - DDKit/DDShareKit (= 0.1)
+    - DDKit/OpenSSL (= 0.1)
+    - DDKit/QQ (= 0.1)
+    - DDKit/WX (= 0.1)
+  - DDKit/AlipaySDK (0.1):
+    - DDKit/OpenSSL
+  - DDKit/DDOAuthKit (0.1):
+    - DDCategory (~> 0.4)
+    - DDKit/AlipaySDK
+    - DDKit/QQ
+    - DDKit/WX
+    - WeiboSDK (~> 3.1.3)
+  - DDKit/DDPaymentKit (0.1):
+    - DDCategory (~> 0.4)
+    - DDKit/AlipaySDK
+    - DDKit/WX
+  - DDKit/DDShareKit (0.1):
+    - DDCategory (~> 0.4)
+    - DDKit/QQ
+    - DDKit/WX
+    - WeiboSDK (~> 3.1.3)
+  - DDKit/OpenSSL (0.1)
+  - DDKit/QQ (0.1)
+  - DDKit/WX (0.1)
   - MBProgressHUD (0.9.1)
   - SDWebImage (3.7.3):
     - SDWebImage/Core (= 3.7.3)
@@ -9,11 +37,15 @@ PODS:
   - WeiboSDK (3.1.3)
 
 DEPENDENCIES:
-  - DDCategory (~> 0.4.2)
-  - WeiboSDK (~> 3.1.3)
+  - DDKit (from `~/DDKit/DDKit.podspec`)
+
+EXTERNAL SOURCES:
+  DDKit:
+    :path: "~/DDKit/DDKit.podspec"
 
 SPEC CHECKSUMS:
   DDCategory: 32c313a679f5edaba6d4492ac670021214a5e70e
+  DDKit: 03c5bd1db22854571376d8c3ac3a330e19c6e76d
   MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
   SDWebImage: 1d2b1a1efda1ade1b00b6f8498865f8ddedc8a84
   WeiboSDK: acb067053668102cf07d01aa7604350162c2e466
