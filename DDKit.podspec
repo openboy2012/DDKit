@@ -8,27 +8,28 @@ s.author   = { 'DeJohn Dong' => 'dongjia_9251@126.com' }
 s.source   = { :git => 'https://github.com/openboy2012/ddkit.git',:tag=>s.version.to_s}
 s.ios.deployment_target = '6.0'
 s.requires_arc = true
-s.resources = 'DDKit/DDKit_iOS_Bundle.bundle'
+s.source_files = 'DDKit/DDKitManager.{h,m}'
+s.public_headers = '
 s.subspec 'WX' do |ss|
- ss.source_files = 'DDKit/Vender/WX/WXApi.h','DDKit/Vender/WX/WXApiObject.h','DDKit/Vender/WX/WechatAuthSDK.h'
+ ss.source_files = 'Classes/Vender/WX/WXApi.h','Classes/Vender/WX/WXApiObject.h','Classes/Vender/WX/WechatAuthSDK.h'
  ss.vendored_libraries = 'DDKit/Vender/WX/libWeChatSDK.a'
  ss.libraries = 'z','sqlite3'
  ss.framework = 'SystemConfiguration'
 end
 s.subspec 'QQ' do |ss|
- ss.source_files = 'DDKit/Vender/QQ/TencentOpenAPI.framework/Headers/*.h'
- ss.public_header_files = 'DDKit/Vender/QQ/TencentOpenAPI.framework/Headers/*h'
- ss.resource = 'DDKit/Vender/QQ/TencentOpenApi_IOS_Bundle.bundle'
+ ss.source_files = 'Classes/Vender/QQ/TencentOpenAPI.framework/Headers/*.h'
+ ss.public_header_files = 'Classes/Vender/QQ/TencentOpenAPI.framework/Headers/*h'
+ ss.resource = 'Classes/Vender/QQ/TencentOpenApi_IOS_Bundle.bundle'
  ss.vendored_frameworks = 'DDKit/Vender/QQ/TencentOpenAPI.framework'
  ss.libraries = 'stdc++','z','sqlite3','iconv'
  ss.frameworks = 'Security','CoreGraphics','SystemConfiguration','CoreTelephony'
 end
 s.subspec 'OpenSSL' do |ss|
- ss.source_files = 'DDKit/Vender/openssl/headers/*.h'
- ss.vendored_libraries = 'DDKit/Vender/openssl/libcrypto.a','DDKit/Vender/openssl/libssl.a'
+ ss.source_files = 'Classes/Vender/openssl/headers/*.h'
+ ss.vendored_libraries = 'Classes/Vender/openssl/libcrypto.a','Classes/Vender/openssl/libssl.a'
 end
 s.subspec 'AlipaySDK' do |ss|
- ss.dependency 'DDKit/OpenSSL'
+ ss.dependency 'Classes/OpenSSL'
 
  ss.source_files = 'DDKit/Vender/AlipayUtil/*.{h,m}'
  ss.public_header_files = 'DDKit/Vender/Alipay/AlipaySDK.framework/Headers/*h'
@@ -42,7 +43,7 @@ s.subspec 'DDPaymentKit' do |ss|
  ss.dependency 'DDKit/WX'
  ss.dependency 'DDCategory', '~> 0.4'
 
- ss.source_files = 'DDKit/DDPaymentKit.{h,m}'
+ ss.source_files = 'Classes/DDPaymentKit.{h,m}'
 end
 s.subspec 'DDShareKit' do |ss|
  ss.dependency 'DDKit/WX'
@@ -50,7 +51,8 @@ s.subspec 'DDShareKit' do |ss|
  ss.dependency 'DDCategory', '~> 0.4'
  ss.dependency 'WeiboSDK', '~> 3.1.3'
 
-ss.source_files = 'DDKit/DDShareKit.{h,m}','DDKit/DDShareItem.{h,m}'
+ ss.resources = 'DDKit/DDKit_iOS_Bundle.bundle'
+ ss.source_files = 'Classes/DDShareKit.{h,m}','Classes/DDShareItem.{h,m}'
 end
 s.subspec 'DDOAuthKit' do |ss|
  ss.dependency 'DDKit/AlipaySDK'
@@ -59,9 +61,8 @@ s.subspec 'DDOAuthKit' do |ss|
  ss.dependency 'DDCategory', '~> 0.4'
  ss.dependency 'WeiboSDK', '~> 3.1.3'
 
- ss.source_files = 'DDKit/DDOAuthKit.{h,m}'
+ ss.source_files = 'Classes/DDOAuthKit.{h,m}'
 end
 
-s.source_files = 'DDKit/DDKitManager.{h,m}'
 
 end
