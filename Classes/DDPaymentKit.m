@@ -6,14 +6,13 @@
 //  Copyright © 2015年 ddkit. All rights reserved.
 //
 
+#import <CommonCrypto/CommonCrypto.h>
 #import "DDPaymentKit.h"
 #import <AlipaySDK/AlipaySDK.h>
-#import <CommonCrypto/CommonCrypto.h>
 #import "DataSigner.h"
 #import "DataVerifier.h"
 #import "WXApi.h"
-#import <NSString+DDKit.h>
-#import <UIView+DDKit.h>
+#import "DDKit.h"
 
 #define ALIPAY_NOTIFY_URL @"http://mapi.bstapp.cn/v1/pay/alipay/notify"
 

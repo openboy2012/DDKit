@@ -1,5 +1,5 @@
 PODS:
-  - DDCategory (0.4.2):
+  - DDCategory (0.4.3):
     - MBProgressHUD (= 0.9.1)
     - SDWebImage (= 3.7.3)
   - DDKit (0.1):
@@ -44,8 +44,8 @@ EXTERNAL SOURCES:
     :path: "~/DDKit/DDKit.podspec"
 
 SPEC CHECKSUMS:
-  DDCategory: 32c313a679f5edaba6d4492ac670021214a5e70e
-  DDKit: 03c5bd1db22854571376d8c3ac3a330e19c6e76d
+  DDCategory: 84c8b8b7af2af5c06bbd65c3dae35aea921fef4a
+  DDKit: 6c5e8326e45cef917ea47555c166d50b9ec6572e
   MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
   SDWebImage: 1d2b1a1efda1ade1b00b6f8498865f8ddedc8a84
   WeiboSDK: acb067053668102cf07d01aa7604350162c2e466
