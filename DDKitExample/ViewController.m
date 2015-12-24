@@ -34,6 +34,7 @@
     shareContent.imageURL = @"http://d.hiphotos.baidu.com/zhidao/pic/item/562c11dfa9ec8a13e028c4c0f603918fa0ecc0e4.jpg";
     shareContent.type = @"detail";
     [DDShareKit sharedKit].shareContent = shareContent;
+    [DDShareKit sharedKit].shareTypes = @[@(DDShareTypeWX),@(DDShareTypeTCWB),@(DDShareTypeQQ),@(DDShareTypeSMS),@(DDShareTypeWX_TIMELINE),@(DDShareTypeWeibo)];
     [[DDShareKit sharedKit] show];
 }
 

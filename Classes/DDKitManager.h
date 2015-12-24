@@ -22,7 +22,6 @@
 @property (nonatomic, copy) NSString *alipayRSAPublicKey;
 @property (nonatomic, copy) NSString *alipayRSAPrivateKey;
 
-
 + (instancetype)sharedManager;
 
 - (void)registerTencentId:(NSString *)tencentId;

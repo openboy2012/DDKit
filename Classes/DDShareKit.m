@@ -49,7 +49,7 @@
 
 @end
 
-@interface DDShareKit ()<MFMessageComposeViewControllerDelegate,TCAPIRequestDelegate,TencentSessionDelegate,WeiboSDKDelegate,WXApiDelegate,TencentLoginDelegate,QQApiInterfaceDelegate>{
+@interface DDShareKit ()<MFMessageComposeViewControllerDelegate,TCAPIRequestDelegate,TencentSessionDelegate,WeiboSDKDelegate,WXApiDelegate,TencentLoginDelegate,QQApiInterfaceDelegate> {
     CALayer *maskLayer;
     NSMutableArray *shareItems;
     TencentOAuth *tcOauth;
@@ -72,48 +72,37 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    if(!self.carryView)
-        self.carryView = [[UIView alloc] initWithFrame:CGRectMake(0.0, self.view.frame.size.height, self.view.frame.size.width, 290.0)];
-    
-    self.carryView.backgroundColor = [UIColor whiteColor];
-    
-    if(!self.platformScrollView) {
-        self.platformScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0.0, 40.0f, self.view.bounds.size.width, 200.0f)];
-        [self getSharePlatforms];
-        for (int i = 0 ; i < shareItems.count ; i ++) {
-            int row = i / 4;
-            int colum = i % 4;
-            CGFloat width = [UIScreen mainScreen].bounds.size.width/4.0f ;
-            DDShareItemButton *btnV = [[DDShareItemButton alloc] initWithFrame:CGRectMake(colum * width , 80.0 * row + 10.0f, width, 90.0)];
-            NSDictionary *item = shareItems[i];
-            btnV.tag = [item[@"type"] unsignedIntegerValue];
-            UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(buttonClicked:)];
-            btnV.lblTitle.text = item[@"title"];
-            btnV.imageView.image = DDKitImageWithImageName(item[@"icon"]);
-            [btnV addGestureRecognizer:tap];
-            [self.platformScrollView addSubview:btnV];
-        }
-        [self.platformScrollView dd_addSeparatorWithType:ViewSeparatorTypeVerticalSide];
-    }
-    [self.carryView addSubview:self.platformScrollView];
-    
-    if(!self.btnCancel)
-        self.btnCancel = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.btnCancel.frame = CGRectMake(0.0, 240.0f, self.view.bounds.size.width, 50.0);
-    [self.btnCancel setTitle:@"取消" forState:UIControlStateNormal];
-    [self.btnCancel setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
-    [self.btnCancel addTarget:self action:@selector(hide) forControlEvents:UIControlEventTouchUpInside];
-    [self.carryView addSubview:self.btnCancel];
-    
-    if(!self.lblTitle)
-        self.lblTitle = [[UILabel alloc] initWithFrame:CGRectMake(0.0, 0.0, self.view.bounds.size.width, 40.0f)];
-    self.lblTitle.font = [UIFont systemFontOfSize:15.0f];
-    self.lblTitle.textAlignment = NSTextAlignmentCenter;
-    self.lblTitle.text = @"分享到";
-    [self.carryView addSubview:self.lblTitle];
     
     [self.view addSubview:self.carryView];
     
+    [self getSharePlatforms];
+    
+    if (shareItems.count > 4) {
+        self.carryView.frame = CGRectMake(0, 0, self.view.bounds.size.width, 290.0);
+        self.platformScrollView.frame = CGRectMake(0, 40.0, self.carryView.bounds.size.width, 200.0);
+    } else {
+        self.carryView.frame = CGRectMake(0, 0, self.view.bounds.size.width, 210.0);
+        self.platformScrollView.frame = CGRectMake(0, 40.0, self.carryView.bounds.size.width, 120.0);
+    }
+    self.btnCancel.frame = CGRectMake(0, self.carryView.bounds.size.height - 50.0, self.carryView.bounds.size.width, 50.0f);
+    self.lblTitle.frame = CGRectMake(0, 0, self.carryView.bounds.size.width, 40.0f);
+    
+    [self.platformScrollView dd_addSeparatorWithType:ViewSeparatorTypeVerticalSide];
+    
+    for (int i = 0 ; i < shareItems.count ; i++) {
+        int row = i / 4;
+        int colum = i % 4;
+        CGFloat width = [UIScreen mainScreen].bounds.size.width/4.0f ;
+        DDShareItemButton *btnV = [[DDShareItemButton alloc] initWithFrame:CGRectMake(colum * width , 80.0 * row + 10.0f, width, 90.0)];
+        NSDictionary *item = shareItems[i];
+        btnV.tag = [item[@"type"] unsignedIntegerValue];
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(buttonClicked:)];
+        btnV.lblTitle.text = item[@"title"];
+        btnV.imageView.image = DDKitImageWithImageName(item[@"icon"]);
+        [btnV addGestureRecognizer:tap];
+        [self.platformScrollView addSubview:btnV];
+    }
+
     
     UITapGestureRecognizer *tapHide = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hide)];
     [self.view addGestureRecognizer:tapHide];
@@ -206,21 +195,21 @@
     [self shareToQQPlatform:oauthBeforeType];
 }
 
-- (void)tencentDidNotLogin:(BOOL)cancelled{
+- (void)tencentDidNotLogin:(BOOL)cancelled {
     [UIView dd_showMessage:@"授权取消"];
 }
 
-- (void)tencentDidNotNetWork{
+- (void)tencentDidNotNetWork {
     [UIView dd_showMessage:@"暂无网络连接"];
 }
 
 #pragma mark - WeiboSDK Delegate Methods
 
-- (void)didReceiveWeiboRequest:(WBBaseRequest *)request{
+- (void)didReceiveWeiboRequest:(WBBaseRequest *)request {
     
 }
 
-- (void)didReceiveWeiboResponse:(WBBaseResponse *)response{
+- (void)didReceiveWeiboResponse:(WBBaseResponse *)response {
     if([response isKindOfClass:WBSendMessageToWeiboResponse.class]){
         WBSendMessageToWeiboResponse *wbResp = (WBSendMessageToWeiboResponse *)response;
         NSString *msg = @"";
@@ -256,7 +245,7 @@
     return shareKit;
 }
 
-+ (BOOL)handleOpenURL:(NSURL *)url delegate:(id<DDShareKitDelegate>)delegate{
++ (BOOL)handleOpenURL:(NSURL *)url delegate:(id<DDShareKitDelegate>)delegate {
     [DDShareKit sharedKit].delegate = delegate;
     if([url.scheme hasPrefix:@"tencent"]){
         return [TencentOAuth HandleOpenURL:url] && [QQApiInterface handleOpenURL:url delegate:(id<QQApiInterfaceDelegate>)[DDShareKit sharedKit]];
@@ -269,14 +258,14 @@
 }
 
 - (void)show {
-    if(!maskLayer)
+    if (!maskLayer)
         maskLayer = [CALayer layer];
     maskLayer.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.3].CGColor;
     maskLayer.opacity = 0.0f;
     maskLayer.frame = self.view.bounds;
     [self.view.layer insertSublayer:maskLayer atIndex:0];
     
-    if(self.shareKitTitle){
+    if (self.shareKitTitle) {
         if ([self.lblTitle respondsToSelector:@selector(setAttributedText:)]) {
             self.lblTitle.attributedText = nil;
             NSString *shareTitle = [NSString stringWithFormat:@"分享的商品被购买,您可获得%@的收益",self.shareKitTitle];
@@ -288,6 +277,10 @@
     UIWindow *topWindows = [[[UIApplication sharedApplication] windows] lastObject];
     [topWindows addSubview:self.view];
     [topWindows.rootViewController addChildViewController:self];
+    self.carryView.frame = (CGRect){
+        self.view.bounds.origin.x,
+        self.view.bounds.size.height,
+        self.carryView.frame.size };
     CGRect frame = self.carryView.frame;
     frame.origin.y = self.view.frame.size.height - self.carryView.frame.size.height;
     [UIView animateWithDuration:0.2f animations:^{
@@ -297,7 +290,7 @@
     
     imageReady = NO;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul), ^{
-        if(!self.shareContent.image){
+        if (!self.shareContent.image) {
             NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:self.shareContent.imageURL]];
             self.shareContent.image = [UIImage imageWithData:imageData];
             imageReady = YES;
@@ -305,7 +298,7 @@
     });
 }
 
-- (void)shareImmediately:(DDShareType)type{
+- (void)shareImmediately:(DDShareType)type {
     imageReady = NO;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul), ^{
         if(!self.shareContent.image){
@@ -338,19 +331,52 @@
     
 }
 
-- (void)getSharePlatforms{
+- (void)getSharePlatforms {
     if(!shareItems)
         shareItems = [[NSMutableArray alloc] initWithCapacity:0];
     [shareItems removeAllObjects];
     
-    [shareItems addObject:@{@"icon":@"share_weixin",@"title":@"微信",@"type":@(DDShareTypeWX)}];
-    [shareItems addObject:@{@"icon":@"share_timeline",@"title":@"朋友圈",@"type":@(DDShareTypeWX_TIMELINE)}];
-    [shareItems addObject:@{@"icon":@"share_sinaweibo",@"title":@"新浪微博",@"type":@(DDShareTypeWeibo)}];
-    [shareItems addObject:@{@"icon":@"share_tcweibo",@"title":@"腾讯微博",@"type":@(DDShareTypeTCWB)}];
-    [shareItems addObject:@{@"icon":@"share_qq",@"title":@"QQ",@"type":@(DDShareTypeQQ)}];
-    [shareItems addObject:@{@"icon":@"share_qzone",@"title":@"QQ空间",@"type":@(DDShareTypeQZone)}];
-    [shareItems addObject:@{@"icon":@"share_sms",@"title":@"短信",@"type":@(DDShareTypeSMS)}];
-    [shareItems addObject:@{@"icon":@"share_copy",@"title":@"复制链接",@"type":@(DDShareTypeCopy)}];
+    if (!self.shareTypes) {
+        [shareItems addObject:@{@"icon":@"share_weixin",@"title":@"微信",@"type":@(DDShareTypeWX)}];
+        [shareItems addObject:@{@"icon":@"share_timeline",@"title":@"朋友圈",@"type":@(DDShareTypeWX_TIMELINE)}];
+        [shareItems addObject:@{@"icon":@"share_sinaweibo",@"title":@"新浪微博",@"type":@(DDShareTypeWeibo)}];
+        [shareItems addObject:@{@"icon":@"share_tcweibo",@"title":@"腾讯微博",@"type":@(DDShareTypeTCWB)}];
+        [shareItems addObject:@{@"icon":@"share_qq",@"title":@"QQ",@"type":@(DDShareTypeQQ)}];
+        [shareItems addObject:@{@"icon":@"share_qzone",@"title":@"QQ空间",@"type":@(DDShareTypeQZone)}];
+        [shareItems addObject:@{@"icon":@"share_sms",@"title":@"短信",@"type":@(DDShareTypeSMS)}];
+        [shareItems addObject:@{@"icon":@"share_copy",@"title":@"复制链接",@"type":@(DDShareTypeCopy)}];
+    } else {
+        [self.shareTypes enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            NSDictionary *dict = nil;
+            switch ([obj integerValue]) {
+                case DDShareTypeWX:
+                    dict = @{@"icon":@"share_weixin",@"title":@"微信",@"type":@(DDShareTypeWX)};
+                    break;
+                case DDShareTypeWX_TIMELINE:
+                    dict = @{@"icon":@"share_timeline",@"title":@"朋友圈",@"type":@(DDShareTypeWX_TIMELINE)};
+                    break;
+                case DDShareTypeWeibo:
+                    dict = @{@"icon":@"share_sinaweibo",@"title":@"新浪微博",@"type":@(DDShareTypeWeibo)};
+                    break;
+                case DDShareTypeTCWB:
+                    dict = @{@"icon":@"share_tcweibo",@"title":@"腾讯微博",@"type":@(DDShareTypeTCWB)};
+                    break;
+                case DDShareTypeQQ:
+                    dict = @{@"icon":@"share_qq",@"title":@"QQ",@"type":@(DDShareTypeQQ)};
+                    break;
+                case DDShareTypeQZone:
+                    dict = @{@"icon":@"share_qzone",@"title":@"QQ空间",@"type":@(DDShareTypeQZone)};
+                    break;
+                case DDShareTypeSMS:
+                    dict = @{@"icon":@"share_sms",@"title":@"短信",@"type":@(DDShareTypeSMS)};
+                    break;
+                default:
+                    dict = @{@"icon":@"share_copy",@"title":@"复制链接",@"type":@(DDShareTypeCopy)};
+                    break;
+            }
+            [shareItems addObject:dict];
+        }];
+    }
 }
 
 - (void)buttonClicked:(id)sender {
@@ -491,7 +517,7 @@
 }
 
 // 缩小图片 微信的图片不超过32k（用于微信分享）
-- (UIImage *)scaleFromImage:(UIImage *)image toSize:(CGSize)size{
+- (UIImage *)scaleFromImage:(UIImage *)image toSize:(CGSize)size {
     UIGraphicsBeginImageContext(size);
     [image drawInRect:CGRectMake(0, 0, size.width, size.height)];
     UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
@@ -513,5 +539,52 @@
     }
 }
 
+#pragma mark - Get & Set Methods
+
+- (UIScrollView *)platformScrollView {
+    if (!_platformScrollView) {
+        _platformScrollView = [[UIScrollView alloc] initWithFrame:CGRectZero];
+    }
+    return _platformScrollView;
+}
+
+- (UIView *)carryView {
+    if (!_carryView) {
+        _carryView = [[UIView alloc] initWithFrame:CGRectZero];
+        _carryView.backgroundColor = [UIColor whiteColor];
+        [_carryView addSubview:self.btnCancel];
+        [_carryView addSubview:self.lblTitle];
+        [_carryView addSubview:self.platformScrollView];
+    }
+    return _carryView;
+}
+
+- (UIButton *)btnCancel {
+    if (!_btnCancel) {
+        _btnCancel = [UIButton buttonWithType:UIButtonTypeCustom];
+        _btnCancel.frame = CGRectMake(0.0, 240.0f, self.view.bounds.size.width, 50.0);
+        [_btnCancel setTitle:@"取消" forState:UIControlStateNormal];
+        [_btnCancel setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+        [_btnCancel addTarget:self action:@selector(hide) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _btnCancel;
+}
+
+- (UILabel *)lblTitle {
+    if (!_lblTitle) {
+//        _lblTitle = [[UILabel alloc] initWithFrame:CGRectZero];
+//        _lblTitle.font = [UIFont systemFontOfSize:15.0f];
+//        _lblTitle.textAlignment = NSTextAlignmentCenter;
+//        _lblTitle.text = @"分享到";
+        _lblTitle =  ({
+            UILabel *titleLabel = [UILabel new];
+            titleLabel.font = [UIFont systemFontOfSize:15.0f];
+            titleLabel.textAlignment = NSTextAlignmentCenter;
+            titleLabel.text = @"分享到";
+            titleLabel;
+        });
+    }
+    return _lblTitle;
+}
 
 @end

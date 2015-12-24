@@ -26,6 +26,7 @@ typedef NS_OPTIONS(NSUInteger, DDShareType) {
 
 @property (nonatomic, strong) DDShareItem *shareContent;
 @property (nonatomic, copy) NSString *shareKitTitle;
+@property (nonatomic, strong) NSArray *shareTypes; //set the shareType array
 
 /**
  *  simple initalize methods
