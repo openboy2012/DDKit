@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
 s.name     = 'DDKit'
-s.version  = '0.1'
+s.version  = '0.1.1'
 s.license  = 'MIT'
 s.summary  = 'The tools about the share kit、oauth login and payment kit.'
 s.homepage = 'https://github.com/openboy2012/DDKit.git'
@@ -45,7 +45,7 @@ end
 s.subspec 'DDPaymentKit' do |ss|
  ss.dependency 'DDKit/AlipaySDK'
  ss.dependency 'DDKit/WX'
- ss.dependency 'DDCategory', '~> 0.4'
+ ss.dependency 'DDCategory', '~> 0.5'
 
  ss.source_files = 'Classes/DDPaymentKit.{h,m}'
 end
@@ -53,7 +53,7 @@ s.subspec 'DDShareKit' do |ss|
  ss.dependency 'DDKit/WX'
  ss.dependency 'DDKit/QQ'
  ss.dependency 'DDKit/DDKitManager'
- ss.dependency 'DDCategory', '~> 0.4'
+ ss.dependency 'DDCategory', '~> 0.5'
  ss.dependency 'WeiboSDK', '~> 3.1.3'
 
  ss.resources = 'Classes/DDKit_iOS_Bundle.bundle'
@@ -64,7 +64,7 @@ s.subspec 'DDOAuthKit' do |ss|
  ss.dependency 'DDKit/WX'
  ss.dependency 'DDKit/QQ'
  ss.dependency 'DDKit/DDKitManager'
- ss.dependency 'DDCategory', '~> 0.4'
+ ss.dependency 'DDCategory', '~> 0.5'
  ss.dependency 'WeiboSDK', '~> 3.1.3'
 
  ss.source_files = 'Classes/DDOAuthKit.{h,m}'

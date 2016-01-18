@@ -12,7 +12,7 @@
 #import "WeiboSDK.h"
 #import "WXApi.h"
 #import "WechatAuthSDK.h"
-#import "DDKit.h"
+#import "DDCategory.h"
 #import "DDKitManager.h"
 
 @interface DDOAuthKit()<WeiboSDKDelegate, WXApiDelegate, TencentLoginDelegate, TencentSessionDelegate,TencentApiInterfaceDelegate> {

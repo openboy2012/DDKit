@@ -12,7 +12,7 @@
 #import "DataSigner.h"
 #import "DataVerifier.h"
 #import "WXApi.h"
-#import "DDKit.h"
+#import "DDCategory.h"
 
 #define ALIPAY_NOTIFY_URL @"http://mapi.bstapp.cn/v1/pay/alipay/notify"
 

@@ -1,39 +1,45 @@
 PODS:
-  - DDCategory (0.4.3):
-    - MBProgressHUD (= 0.9.1)
-    - SDWebImage (= 3.7.3)
-  - DDKit (0.1):
-    - DDKit/AlipaySDK (= 0.1)
-    - DDKit/DDOAuthKit (= 0.1)
-    - DDKit/DDPaymentKit (= 0.1)
-    - DDKit/DDShareKit (= 0.1)
-    - DDKit/OpenSSL (= 0.1)
-    - DDKit/QQ (= 0.1)
-    - DDKit/WX (= 0.1)
-  - DDKit/AlipaySDK (0.1):
+  - DDCategory (0.5):
+    - MBProgressHUD (= 0.9.2)
+    - SDWebImage (= 3.7.4)
+  - DDKit (0.1.1):
+    - DDKit/AlipaySDK (= 0.1.1)
+    - DDKit/DDKitManager (= 0.1.1)
+    - DDKit/DDOAuthKit (= 0.1.1)
+    - DDKit/DDPaymentKit (= 0.1.1)
+    - DDKit/DDShareKit (= 0.1.1)
+    - DDKit/OpenSSL (= 0.1.1)
+    - DDKit/QQ (= 0.1.1)
+    - DDKit/WX (= 0.1.1)
+  - DDKit/AlipaySDK (0.1.1):
     - DDKit/OpenSSL
-  - DDKit/DDOAuthKit (0.1):
-    - DDCategory (~> 0.4)
+  - DDKit/DDKitManager (0.1.1):
+    - DDKit/WX
+    - WeiboSDK (~> 3.1.3)
+  - DDKit/DDOAuthKit (0.1.1):
+    - DDCategory (~> 0.5)
     - DDKit/AlipaySDK
+    - DDKit/DDKitManager
     - DDKit/QQ
     - DDKit/WX
     - WeiboSDK (~> 3.1.3)
-  - DDKit/DDPaymentKit (0.1):
-    - DDCategory (~> 0.4)
+  - DDKit/DDPaymentKit (0.1.1):
+    - DDCategory (~> 0.5)
     - DDKit/AlipaySDK
     - DDKit/WX
-  - DDKit/DDShareKit (0.1):
-    - DDCategory (~> 0.4)
+  - DDKit/DDShareKit (0.1.1):
+    - DDCategory (~> 0.5)
+    - DDKit/DDKitManager
     - DDKit/QQ
     - DDKit/WX
     - WeiboSDK (~> 3.1.3)
-  - DDKit/OpenSSL (0.1)
-  - DDKit/QQ (0.1)
-  - DDKit/WX (0.1)
-  - MBProgressHUD (0.9.1)
-  - SDWebImage (3.7.3):
-    - SDWebImage/Core (= 3.7.3)
-  - SDWebImage/Core (3.7.3)
+  - DDKit/OpenSSL (0.1.1)
+  - DDKit/QQ (0.1.1)
+  - DDKit/WX (0.1.1)
+  - MBProgressHUD (0.9.2)
+  - SDWebImage (3.7.4):
+    - SDWebImage/Core (= 3.7.4)
+  - SDWebImage/Core (3.7.4)
   - WeiboSDK (3.1.3)
 
 DEPENDENCIES:
@@ -44,10 +50,10 @@ EXTERNAL SOURCES:
     :path: "~/DDKit/DDKit.podspec"
 
 SPEC CHECKSUMS:
-  DDCategory: 84c8b8b7af2af5c06bbd65c3dae35aea921fef4a
-  DDKit: 6c5e8326e45cef917ea47555c166d50b9ec6572e
-  MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
-  SDWebImage: 1d2b1a1efda1ade1b00b6f8498865f8ddedc8a84
+  DDCategory: 0b57bf6f022e997f9fc8e2e7016bdd84e1527c0e
+  DDKit: 30df47e01a9f97ffa7e879b52f96a380a3df44cc
+  MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
+  SDWebImage: 247edd7dd80dd6124197b0d6a17846fe9d1df968
   WeiboSDK: acb067053668102cf07d01aa7604350162c2e466
 
 COCOAPODS: 0.39.0

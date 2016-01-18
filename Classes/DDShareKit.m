@@ -11,7 +11,7 @@
 #import <TencentOpenAPI/TencentOAuth.h>
 #import <TencentOpenAPI/WeiBoAPI.h>
 #import <MessageUI/MessageUI.h>
-#import "DDKit.h"
+#import "DDCategory.h"
 #import "WXApi.h"
 #import "WeiboSDK.h"
 #import "DDKitManager.h"
